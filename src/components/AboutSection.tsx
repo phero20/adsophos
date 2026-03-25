@@ -33,11 +33,11 @@ const AboutSection = () => (
           viewport={{ once: true }}
         >
           <p className="font-body text-muted-foreground text-sm leading-relaxed mb-4">
-            ADSOPHOS 2026 is a 2-day technical extravaganza where innovation meets entertainment.
+            ADSOPHOS 2026 is a 2-day technical fest where innovation meets entertainment.
             Compete, create, and celebrate technology across multiple arenas.
           </p>
           <p className="font-body text-muted-foreground text-sm leading-relaxed">
-            From high-speed coders to classic bot battles, see which teams are dominating the charts.
+            From high-speed battles to classic quizzes, see which teams are leading the charts.
             Play, compete, and claim your spot among the best!
           </p>
         </motion.div>

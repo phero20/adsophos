@@ -4,6 +4,7 @@ import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import HistorySection from "@/components/HistorySection";
 import EventsSection from "@/components/EventsSection";
 import ScheduleSection from "@/components/ScheduleSection";
 import FAQSection from "@/components/FAQSection";
@@ -34,6 +35,7 @@ const Index = () => {
         <HeroSection />
         <MarqueeTicker />
         <AboutSection />
+        <HistorySection />
         <EventsSection />
         <ScheduleSection />
         <FAQSection />

@@ -48,15 +48,15 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.div
-          className="flex flex-col items-center gap-3 mb-10 mt-2"
+          className="flex flex-col items-center gap-3 mb-12 mt-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.6 }}
         >
-          <p className="font-arcade text-[10px] md:text-sm text-center text-arcade-pink tracking-widest">
+          <p className="font-arcade text-xs md:text-xl text-center text-arcade-yellow tracking-widest hero-glow">
             LEVEL UP YOUR CURIOSITY
           </p>
-          <p className="font-arcade text-[9px] md:text-[11px] text-center text-primary-foreground tracking-widest uppercase">
+          <p className="font-arcade text-[10px] md:text-sm text-center text-white tracking-[0.2em] uppercase">
             9TH & 10TH APRIL
           </p>
         </motion.div>

@@ -4,6 +4,7 @@ import logo from "@/assets/logo3.png"; // Combined MJ college logo
 
 const navLinks = [
   { label: "About", href: "#about" },
+  { label: "History", href: "#history" },
   { label: "Events", href: "#events" },
   { label: "Schedule", href: "#schedule" },
   { label: "FAQ", href: "#faq" },
