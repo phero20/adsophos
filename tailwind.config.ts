@@ -15,8 +15,8 @@ export default {
     extend: {
       fontFamily: {
         arcade: ['"Press Start 2P"', 'cursive'],
-        display: ['Orbitron', 'sans-serif'],
-        body: ['Rajdhani', 'sans-serif'],
+        display: ['Bungee', 'cursive'],
+        body: ['"Space Mono"', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,15 +52,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        neon: {
-          red: "hsl(var(--neon-red))",
-          orange: "hsl(var(--neon-orange))",
-          yellow: "hsl(var(--neon-yellow))",
-          green: "hsl(var(--neon-green))",
-          blue: "hsl(var(--neon-blue))",
-          purple: "hsl(var(--neon-purple))",
-          pink: "hsl(var(--neon-pink))",
-          cyan: "hsl(var(--neon-cyan))",
+        arcade: {
+          pink: "hsl(var(--arcade-pink))",
+          yellow: "hsl(var(--arcade-yellow))",
+          orange: "hsl(var(--arcade-orange))",
+          cyan: "hsl(var(--arcade-cyan))",
+          green: "hsl(var(--arcade-green))",
+          red: "hsl(var(--arcade-red))",
+          blue: "hsl(var(--arcade-blue))",
+          purple: "hsl(var(--arcade-purple))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -87,25 +87,25 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "neon-pulse": {
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "blink": {
           "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
+          "50%": { opacity: "0" },
         },
         "float": {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
-        "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 5px hsl(var(--neon-cyan) / 0.5), 0 0 20px hsl(var(--neon-cyan) / 0.2)" },
-          "50%": { boxShadow: "0 0 15px hsl(var(--neon-cyan) / 0.8), 0 0 50px hsl(var(--neon-cyan) / 0.4)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "neon-pulse": "neon-pulse 2s ease-in-out infinite",
+        "marquee": "marquee 20s linear infinite",
+        "blink": "blink 1s step-end infinite",
         "float": "float 3s ease-in-out infinite",
-        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
       },
     },
   },
