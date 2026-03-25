@@ -19,41 +19,30 @@ const HeroSection = () => {
       />
 
       <div className="relative z-10 flex flex-col items-center justify-center">
-        {/* Logo with spinning circle + static text overlay */}
+        {/* Revolving logo */}
         <motion.div
-          className="relative mb-6"
+          className="relative mb-8"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
         >
-          {/* The rotating logo image (circle spins) */}
           <motion.img
             src={logo}
             alt="ADSOPHOS 2026"
-            className="w-52 md:w-72 lg:w-80"
+            className="w-44 md:w-64 lg:w-72"
             animate={{ rotate: 360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           />
-
-          {/* Static text overlays to mask the rotating text */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="flex items-center gap-[25%] md:gap-[28%]">
-              <span className="font-display text-2xl md:text-4xl text-foreground tracking-wider" style={{ textShadow: '0 0 20px hsl(0 0% 4%), 0 0 40px hsl(0 0% 4%)' }}>
-                ADS
-              </span>
-              <span className="font-display text-2xl md:text-4xl text-foreground tracking-wider" style={{ textShadow: '0 0 20px hsl(0 0% 4%), 0 0 40px hsl(0 0% 4%)' }}>
-                PHOS
-              </span>
-            </div>
-          </div>
-
-          {/* Static 2026 below */}
-          <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 pointer-events-none">
-            <span className="font-display text-lg md:text-2xl text-foreground tracking-[0.3em]" style={{ textShadow: '0 0 20px hsl(0 0% 4%), 0 0 40px hsl(0 0% 4%)' }}>
-              2026
-            </span>
-          </div>
         </motion.div>
+
+        <motion.p
+          className="font-display text-3xl md:text-5xl lg:text-6xl text-arcade-yellow mb-3 text-glow-yellow"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
+          2026
+        </motion.p>
 
         <motion.p
           className="font-body text-lg md:text-xl text-muted-foreground mb-10 uppercase tracking-widest"
