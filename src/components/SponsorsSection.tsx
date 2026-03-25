@@ -6,7 +6,7 @@ const sponsors = [
 ];
 
 const SponsorsSection = () => (
-  <section id="sponsors" className="relative py-20 px-4 arcade-grid-bg">
+  <section id="sponsors" className="relative py-20 px-4 arcade-grid-bg scroll-mt-24">
     <div className="container mx-auto max-w-4xl">
       <motion.h2
         className="font-display text-4xl md:text-6xl text-center text-arcade-yellow mb-2"

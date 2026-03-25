@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
-import { Code, Bot, Gamepad2, PartyPopper, Lightbulb } from "lucide-react";
+import { FileText, Image, Brain, PartyPopper, Lightbulb } from "lucide-react";
 
 const features = [
-  { icon: Code, label: "Coding", desc: "Competitive programming & hackathons" },
-  { icon: Bot, label: "Robotics", desc: "Build and battle bots" },
-  { icon: Gamepad2, label: "Gaming", desc: "Esports tournaments & retro games" },
+  { icon: FileText, label: "Paper Presentation", desc: "Present your research & ideas" },
+  { icon: Image, label: "Poster Presentation", desc: "Showcase creative visual displays" },
+  { icon: Brain, label: "Quiz Competition", desc: "Test your knowledge & win" },
   { icon: PartyPopper, label: "Fun Events", desc: "Treasure hunts & quizzes" },
   { icon: Lightbulb, label: "Project Expo", desc: "Showcase your innovations" },
 ];
 
 const AboutSection = () => (
-  <section id="about" className="relative py-20 px-4">
+  <section id="about" className="relative py-20 px-4 scroll-mt-24">
     {/* Pixel divider top */}
     <div className="pixel-divider mb-16" />
 

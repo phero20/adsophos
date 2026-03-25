@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import logo from "@/assets/adsophos-logo.png";
 import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
 
 const HeroSection = () => {
-  const [entered, setEntered] = useState(false);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
@@ -18,27 +16,30 @@ const HeroSection = () => {
         }}
       />
 
-      <div className="relative z-10 flex flex-col items-center justify-center">
+      <div className="relative z-10 flex flex-col items-center justify-center mt-12 md:mt-20">
         <motion.img
+          layoutId="main-logo"
           src={logo}
           alt="ADSOPHOS 2026"
-          className="w-28 md:w-40 mb-6"
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 1, type: "spring", bounce: 0.4 }}
+          className="w-40 md:w-56 mb-6"
+          transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
         />
 
         <motion.h1
-          className="font-display text-5xl md:text-7xl lg:text-8xl text-arcade-pink mb-2 text-glow-pink tracking-wide"
+          className="font-arcade text-4xl md:text-6xl lg:text-7xl text-white mb-2 tracking-wide hero-title-glow"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
+          style={{
+            WebkitTextStroke: '2px hsl(340, 100%, 57%)',
+            paintOrder: 'stroke fill',
+          }}
         >
           ADSOPHOS
         </motion.h1>
 
         <motion.p
-          className="font-display text-2xl md:text-4xl lg:text-5xl text-arcade-yellow mb-3 text-glow-yellow"
+          className="font-display text-4xl md:text-6xl lg:text-7xl text-arcade-yellow mb-2 hero-year-glow"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
@@ -46,49 +47,42 @@ const HeroSection = () => {
           2026
         </motion.p>
 
-        <motion.p
-          className="font-body text-lg md:text-xl text-muted-foreground mb-10 uppercase tracking-widest"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
+        <motion.div
+          className="flex flex-col items-center gap-3 mb-10 mt-2"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
         >
-          Level Up • The Arcade Fest
-        </motion.p>
+          <p className="font-arcade text-[10px] md:text-sm text-center text-arcade-pink tracking-widest">
+            LEVEL UP YOUR CURIOSITY
+          </p>
+          <p className="font-arcade text-[9px] md:text-[11px] text-center text-primary-foreground tracking-widest uppercase">
+            9TH & 10TH APRIL
+          </p>
+        </motion.div>
 
-        <motion.div className="flex gap-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5 }}>
-          <motion.button
-            onClick={() => {
-              setEntered(true);
-              setTimeout(() => {
-                document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-              }, 400);
-            }}
-            className="font-arcade text-[10px] md:text-xs px-6 py-4 bg-arcade-pink text-primary-foreground pixel-btn"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {entered ? "▶ ENTER FEST" : "🪙 INSERT COIN"}
-          </motion.button>
-
+        <motion.div className="flex flex-col sm:flex-row gap-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
           <motion.a
             href="#events"
-            className="font-arcade text-[10px] md:text-xs px-6 py-4 bg-background text-arcade-yellow pixel-btn-yellow"
+            className="font-arcade text-[10px] md:text-xs px-8 py-4 bg-arcade-pink text-primary-foreground pixel-btn"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            VIEW EVENTS
+            EXPLORE EVENTS
+          </motion.a>
+
+          <motion.a
+            href="#contact"
+            className="font-arcade text-[10px] md:text-xs px-8 py-4 bg-background text-arcade-yellow pixel-btn-yellow"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            CONTACT US
           </motion.a>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5 }}
-      >
-        <div className="font-arcade text-[8px] text-arcade-pink animate-blink">▼ SCROLL ▼</div>
-      </motion.div>
+
     </section>
   );
 };

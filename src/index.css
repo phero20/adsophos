@@ -58,6 +58,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   * {
     @apply border-border;
   }
@@ -87,6 +91,22 @@
 
   .text-glow-yellow {
     text-shadow: 0 0 10px hsl(var(--arcade-yellow) / 0.8), 0 0 30px hsl(var(--arcade-yellow) / 0.4);
+  }
+
+  .hero-title-glow {
+    text-shadow:
+      0 0 20px hsl(var(--arcade-pink) / 1),
+      0 0 60px hsl(var(--arcade-pink) / 0.6),
+      0 0 100px hsl(var(--arcade-pink) / 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.9);
+  }
+
+  .hero-year-glow {
+    text-shadow:
+      0 0 20px hsl(var(--arcade-yellow) / 1),
+      0 0 60px hsl(var(--arcade-yellow) / 0.6),
+      0 0 100px hsl(var(--arcade-yellow) / 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.9);
   }
 
   .pixel-border {
@@ -193,4 +213,22 @@
 @keyframes scanline {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100vh); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.outline-text {
+  text-shadow: 
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
 }

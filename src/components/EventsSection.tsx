@@ -1,24 +1,24 @@
 import { motion } from "framer-motion";
-import { Code, Bot, Gamepad2, PartyPopper, Lightbulb } from "lucide-react";
+import { FileText, Image, Brain, PartyPopper, Lightbulb, Key } from "lucide-react";
 
 const levels = [
   {
     level: 1,
-    title: "Coding Events",
-    icon: Code,
-    events: ["Hackathon", "Debug Wars", "Code Golf", "Algorithm Challenge"],
+    title: "Paper Presentation",
+    icon: FileText,
+    events: ["Technical Papers", "Research Showcase", "Innovation Pitches", "Case Studies"],
   },
   {
     level: 2,
-    title: "Robotics",
-    icon: Bot,
-    events: ["Line Follower", "Robo Race", "Drone Challenge", "Bot Battle"],
+    title: "Poster Presentation",
+    icon: Image,
+    events: ["Creative Posters", "Infographic Design", "Visual Storytelling", "Data Visualization"],
   },
   {
     level: 3,
-    title: "Gaming",
-    icon: Gamepad2,
-    events: ["Valorant", "BGMI", "FIFA", "Retro Arcade"],
+    title: "Quiz Competition",
+    icon: Brain,
+    events: ["Tech Quiz", "General Knowledge", "Rapid Fire", "Buzzer Round"],
   },
   {
     level: 4,
@@ -32,10 +32,16 @@ const levels = [
     icon: Lightbulb,
     events: ["IoT Projects", "AI/ML Demos", "Web Apps", "Hardware Hacks"],
   },
+  {
+    level: 6,
+    title: "Escape Room",
+    icon: Key,
+    events: ["Mystery Puzzle", "Code Breaking", "Logic Maze", "Time Challenge"],
+  },
 ];
 
 const EventsSection = () => (
-  <section id="events" className="relative py-20 px-4 arcade-grid-bg">
+  <section id="events" className="relative py-20 px-4 arcade-grid-bg scroll-mt-24">
     <div className="container mx-auto max-w-6xl">
       <motion.h2
         className="font-display text-4xl md:text-6xl text-center text-arcade-yellow mb-2"
@@ -43,7 +49,7 @@ const EventsSection = () => (
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        CHOOSE YOUR LEVEL
+        ENTER THE ARENA
       </motion.h2>
       <p className="text-center text-muted-foreground mb-14 font-body text-sm uppercase tracking-widest">
         Select an arena and begin your quest
@@ -52,7 +58,7 @@ const EventsSection = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {levels.map((lvl, i) => (
           <motion.div
-            key={lvl.level}
+            key={lvl.title}
             className="relative bg-card pixel-border p-6 group cursor-pointer"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -60,11 +66,6 @@ const EventsSection = () => (
             transition={{ delay: i * 0.1 }}
             whileHover={{ y: -6 }}
           >
-            {/* Level badge */}
-            <div className="absolute -top-4 left-4 font-arcade text-[9px] bg-arcade-yellow text-background px-3 py-1">
-              LVL {lvl.level}
-            </div>
-
             <div className="flex items-center gap-3 mb-4 mt-2">
               <lvl.icon className="w-7 h-7 text-arcade-pink" />
               <h3 className="font-display text-xl text-foreground">{lvl.title}</h3>
@@ -80,7 +81,7 @@ const EventsSection = () => (
             </ul>
 
             <button className="w-full font-arcade text-[9px] py-3 bg-background text-arcade-pink pixel-btn hover:bg-arcade-pink hover:text-primary-foreground transition-colors">
-              ▶ PLAY NOW
+              ▶ BEGIN QUEST
             </button>
           </motion.div>
         ))}

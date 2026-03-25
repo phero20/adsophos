@@ -11,6 +11,14 @@ const AnimatedShaderBackground = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d')!;
 
+    // Visible but subtle mountains at the far left and far right edges
+    const mountains = [
+      { cx: -0.42, w: 0.15, h: 0.03 },
+      { cx: -0.48, w: 0.2, h: 0.045 },
+      { cx: 0.42, w: 0.12, h: 0.025 },
+      { cx: 0.48, w: 0.22, h: 0.04 },
+    ];
+
     let animId: number;
     let time = 0;
 
@@ -25,6 +33,11 @@ const AnimatedShaderBackground = () => {
     for (let i = 0; i < 100; i++) {
       stars.push({ x: Math.random(), y: Math.random() * 0.5, s: Math.random() * 2 + 0.5, b: Math.random() });
     }
+
+    const seededRandom = (seed: number) => {
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    };
 
     const draw = () => {
       const W = canvas.width;
@@ -62,22 +75,25 @@ const AnimatedShaderBackground = () => {
       ctx.arc(sunCX, sunCY, sunR, 0, Math.PI * 2);
       ctx.fill();
 
-      // Sun scanlines
-      for (let i = 0; i < 10; i++) {
-        const y = sunCY - sunR + (i + 1) * (sunR * 2) / 11;
-        if (y > sunCY - sunR && y < sunCY + sunR) {
-          ctx.fillStyle = 'rgba(5, 5, 5, 0.5)';
-          const lineH = 2 + i * 0.6;
-          ctx.fillRect(sunCX - sunR, y, sunR * 2, lineH);
-        }
-      }
-
       // Sun glow
       const glowGrad = ctx.createRadialGradient(sunCX, sunCY, sunR * 0.5, sunCX, sunCY, sunR * 2.5);
       glowGrad.addColorStop(0, 'rgba(255, 45, 120, 0.12)');
       glowGrad.addColorStop(1, 'rgba(255, 45, 120, 0)');
       ctx.fillStyle = glowGrad;
       ctx.fillRect(0, 0, W, horizon + 20);
+
+      // Distant Mountains Silhouette (corners)
+      ctx.fillStyle = '#0c0714';
+      mountains.forEach(m => {
+        const cx = sunCX + m.cx * W;
+        const width = m.w * W;
+        const peakY = horizon - m.h * H;
+        ctx.beginPath();
+        ctx.moveTo(cx - width, horizon + 2);
+        ctx.lineTo(cx, peakY);
+        ctx.lineTo(cx + width, horizon + 2);
+        ctx.fill();
+      });
 
       // Horizon line
       ctx.strokeStyle = '#FF2D78';
@@ -98,11 +114,19 @@ const AnimatedShaderBackground = () => {
       ctx.strokeStyle = 'rgba(255, 45, 120, 0.4)';
       ctx.lineWidth = 1;
 
-      // Horizontal lines
-      for (let i = 1; i <= 15; i++) {
-        const t = i / 15;
+      // Animated horizontal lines scrolling toward horizon
+      const gridSpeed = 0.4;
+      const totalLines = 20;
+      const scrollOffset = (time * gridSpeed) % (1 / totalLines);
+
+      for (let i = 0; i < totalLines; i++) {
+        // t goes from 0 (horizon) to 1 (bottom), with scroll offset
+        let t = (i / totalLines) + scrollOffset;
+        if (t > 1) t -= 1;
+
+        // Quadratic perspective: lines bunch up near horizon
         const y = horizon + t * t * (H - horizon);
-        ctx.globalAlpha = 0.2 + t * 0.6;
+        ctx.globalAlpha = 0.1 + t * 0.7;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(W, y);

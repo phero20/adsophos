@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/adsophos-logo.png";
+import logo from "@/assets/logo3.png"; // Combined MJ college logo
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Events", href: "#events" },
   { label: "Schedule", href: "#schedule" },
-  { label: "Stalls", href: "#stalls" },
-  { label: "Register", href: "#register" },
-  { label: "Sponsors", href: "#sponsors" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -29,15 +27,12 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-2 px-4">
-        <a href="#" className="flex items-center gap-3 group">
+        <a href="#" className="flex items-center group">
           <img
             src={logo}
-            alt="ADSOPHOS 2026"
-            className="h-8 w-auto"
+            alt="Muffakham Jah College"
+            className="h-10 md:h-12 w-auto"
           />
-          <span className="font-display text-arcade-pink text-lg hidden sm:block tracking-wide">
-            ADSOPHOS
-          </span>
         </a>
 
         {/* Desktop */}

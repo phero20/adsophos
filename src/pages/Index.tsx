@@ -6,18 +6,17 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import EventsSection from "@/components/EventsSection";
 import ScheduleSection from "@/components/ScheduleSection";
-import StallsSection from "@/components/StallsSection";
-import RegistrationSection from "@/components/RegistrationSection";
-import SponsorsSection from "@/components/SponsorsSection";
+import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import JoystickTrigger from "@/components/ui/joystick-trigger";
 
 const MarqueeTicker = () => (
   <div className="bg-arcade-yellow overflow-hidden py-2">
     <div className="animate-marquee whitespace-nowrap flex">
       {[...Array(4)].map((_, i) => (
         <span key={i} className="font-arcade text-[9px] text-background mx-8">
-          ★ ADSOPHOS 2026 — REGISTER NOW ★ LEVEL UP YOUR SKILLS ★ 2-DAY TECH FEST ★ CODING • ROBOTICS • GAMING • FUN EVENTS ★
+          ★ ADSOPHOS 2026 — LEVEL UP YOUR SKILLS ★ 2-DAY TECH FEST ★ PAPER PRESENTATION • POSTER PRESENTATION • QUIZ COMPETITION • FUN EVENTS ★
         </span>
       ))}
     </div>
@@ -37,10 +36,9 @@ const Index = () => {
         <AboutSection />
         <EventsSection />
         <ScheduleSection />
-        <StallsSection />
-        <RegistrationSection />
-        <SponsorsSection />
+        <FAQSection />
         <ContactSection />
+        <JoystickTrigger />
         <Footer />
       </div>
     </>

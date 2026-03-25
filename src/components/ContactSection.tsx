@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const ContactSection = () => (
-  <section id="contact" className="relative py-20 px-4">
+  <section id="contact" className="relative py-20 px-4 scroll-mt-24">
     <div className="container mx-auto max-w-4xl">
       <motion.h2
         className="font-display text-4xl md:text-6xl text-center text-arcade-pink mb-2"

@@ -6,18 +6,18 @@ const Footer = () => (
     <div className="container mx-auto max-w-5xl">
       <div className="grid md:grid-cols-3 gap-8 items-center">
         {/* Brand */}
-        <div className="flex flex-col items-center md:items-start gap-3">
-          <img src={logo} alt="ADSOPHOS 2026" className="h-12 w-auto" />
-          <span className="font-display text-arcade-pink text-lg">ADSOPHOS 2026</span>
+        <div className="flex flex-col items-center md:items-start gap-4">
+          <img src={logo} alt="ADSOPHOS 2026" className="h-20 w-auto" />
+          <span className="font-display text-arcade-pink text-3xl tracking-wider">ADSOPHOS 2026</span>
         </div>
 
         {/* Links */}
         <div className="grid grid-cols-2 gap-2 text-center">
-          {["About", "Events", "Schedule", "Register", "Sponsors", "Contact"].map((link) => (
+          {["About", "Events", "Schedule", "Contact"].map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className="font-arcade text-[7px] text-muted-foreground hover:text-arcade-yellow transition-colors uppercase"
+              className="font-arcade text-[8px] text-muted-foreground hover:text-arcade-yellow transition-colors uppercase"
             >
               {link}
             </a>

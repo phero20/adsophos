@@ -30,7 +30,7 @@ const RegistrationSection = () => {
   ];
 
   return (
-    <section id="register" className="relative py-20 px-4">
+    <section id="register" className="relative py-20 px-4 scroll-mt-24">
       <div className="pixel-divider-yellow mb-16" />
 
       <div className="container mx-auto max-w-3xl text-center">
