@@ -19,26 +19,24 @@ const HeroSection = () => {
       />
 
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <motion.img
-          src={logo}
-          alt="ADSOPHOS 2026"
-          className="w-28 md:w-40 mb-6"
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 1, type: "spring", bounce: 0.4 }}
-        />
-
-        <motion.h1
-          className="font-display text-5xl md:text-7xl lg:text-8xl text-arcade-pink mb-2 text-glow-pink tracking-wide"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+        {/* Revolving logo */}
+        <motion.div
+          className="relative mb-8"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
         >
-          ADSOPHOS
-        </motion.h1>
+          <motion.img
+            src={logo}
+            alt="ADSOPHOS 2026"
+            className="w-44 md:w-64 lg:w-72"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        </motion.div>
 
         <motion.p
-          className="font-display text-2xl md:text-4xl lg:text-5xl text-arcade-yellow mb-3 text-glow-yellow"
+          className="font-display text-3xl md:text-5xl lg:text-6xl text-arcade-yellow mb-3 text-glow-yellow"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
