@@ -26,15 +26,17 @@ const days = [
 ];
 
 const ScheduleSection = () => (
-  <section id="schedule" className="relative py-24 px-4">
+  <section id="schedule" className="relative py-20 px-4">
+    <div className="pixel-divider-yellow mb-16" />
+
     <div className="container mx-auto max-w-4xl">
       <motion.h2
-        className="font-arcade text-lg md:text-2xl text-center text-glow-purple mb-14"
+        className="font-display text-4xl md:text-6xl text-center text-arcade-pink mb-14"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        Game Timeline
+        GAME TIMELINE
       </motion.h2>
 
       <div className="grid md:grid-cols-2 gap-10">
@@ -47,11 +49,11 @@ const ScheduleSection = () => (
             transition={{ delay: 0.2 }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <span className="font-arcade text-sm text-neon-cyan">{day.day}</span>
-              <span className="text-muted-foreground font-body">— {day.date}</span>
+              <span className="font-arcade text-xs text-arcade-yellow bg-arcade-yellow/10 px-3 py-1">{day.day}</span>
+              <span className="text-muted-foreground font-body text-sm">— {day.date}</span>
             </div>
 
-            <div className="relative border-l-2 border-neon-cyan/20 pl-6 space-y-6">
+            <div className="relative border-l-4 border-arcade-pink pl-6 space-y-4">
               {day.events.map((ev, i) => (
                 <motion.div
                   key={ev.title}
@@ -61,13 +63,12 @@ const ScheduleSection = () => (
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  {/* Dot */}
-                  <div className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-neon-cyan/30 border-2 border-neon-cyan group-hover:bg-neon-cyan transition-colors" />
+                  <div className="absolute -left-[29px] top-2 w-3 h-3 bg-arcade-pink" />
 
-                  <div className="bg-card rounded-lg p-4 neon-border group-hover:neon-glow transition-all duration-300">
-                    <span className="font-display text-xs text-neon-cyan">{ev.time}</span>
-                    <h4 className="font-display font-bold text-foreground mt-1">{ev.title}</h4>
-                    <p className="text-sm text-muted-foreground font-body">{ev.desc}</p>
+                  <div className="bg-card p-4 pixel-border group-hover:bg-secondary transition-colors">
+                    <span className="font-arcade text-[8px] text-arcade-yellow">{ev.time}</span>
+                    <h4 className="font-display text-base text-foreground mt-1">{ev.title}</h4>
+                    <p className="text-xs text-muted-foreground font-body">{ev.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -76,6 +77,8 @@ const ScheduleSection = () => (
         ))}
       </div>
     </div>
+
+    <div className="pixel-divider mt-16" />
   </section>
 );
 

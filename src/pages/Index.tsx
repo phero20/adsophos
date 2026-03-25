@@ -12,16 +12,28 @@ import SponsorsSection from "@/components/SponsorsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
+const MarqueeTicker = () => (
+  <div className="bg-arcade-yellow overflow-hidden py-2">
+    <div className="animate-marquee whitespace-nowrap flex">
+      {[...Array(4)].map((_, i) => (
+        <span key={i} className="font-arcade text-[9px] text-background mx-8">
+          ★ ADSOPHOS 2026 — REGISTER NOW ★ LEVEL UP YOUR SKILLS ★ 2-DAY TECH FEST ★ CODING • ROBOTICS • GAMING • FUN EVENTS ★
+        </span>
+      ))}
+    </div>
+  </div>
+);
+
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
 
   return (
     <>
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
-      <ParticleBackground />
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
+        <MarqueeTicker />
         <AboutSection />
         <EventsSection />
         <ScheduleSection />

@@ -6,17 +6,17 @@ const sponsors = [
 ];
 
 const SponsorsSection = () => (
-  <section id="sponsors" className="relative py-24 px-4">
+  <section id="sponsors" className="relative py-20 px-4 arcade-grid-bg">
     <div className="container mx-auto max-w-4xl">
       <motion.h2
-        className="font-arcade text-lg md:text-2xl text-center text-glow-cyan mb-4"
+        className="font-display text-4xl md:text-6xl text-center text-arcade-yellow mb-2"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        Power-Ups
+        POWER-UPS
       </motion.h2>
-      <p className="text-center text-muted-foreground mb-14 font-body text-lg">
+      <p className="text-center text-muted-foreground mb-14 font-body text-sm uppercase tracking-widest">
         Our sponsors make the game possible
       </p>
 
@@ -24,14 +24,14 @@ const SponsorsSection = () => (
         {sponsors.map((s, i) => (
           <motion.div
             key={s}
-            className="h-28 rounded-xl bg-card neon-border-pink flex items-center justify-center group hover:neon-glow transition-all duration-300 cursor-default"
+            className="h-28 bg-card pixel-border flex items-center justify-center group cursor-default"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03 }}
           >
-            <span className="font-display text-muted-foreground group-hover:text-neon-cyan transition-colors font-bold">
+            <span className="font-display text-muted-foreground group-hover:text-arcade-yellow transition-colors">
               {s}
             </span>
           </motion.div>

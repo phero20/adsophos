@@ -25,17 +25,17 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/90 backdrop-blur-md border-b border-border" : "bg-transparent"
+        scrolled ? "bg-background/95 backdrop-blur-sm border-b-4 border-arcade-pink" : "bg-background border-b-4 border-arcade-pink"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <a href="#" className="flex items-center gap-2 group">
+      <div className="container mx-auto flex items-center justify-between py-2 px-4">
+        <a href="#" className="flex items-center gap-3 group">
           <img
             src={logo}
             alt="ADSOPHOS 2026"
-            className="h-10 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_12px_hsl(var(--neon-cyan)/0.6)]"
+            className="h-8 w-auto"
           />
-          <span className="font-display font-bold text-foreground text-sm hidden sm:block">
+          <span className="font-display text-arcade-pink text-lg hidden sm:block tracking-wide">
             ADSOPHOS
           </span>
         </a>
@@ -46,7 +46,7 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="font-display text-xs uppercase tracking-widest text-muted-foreground hover:text-neon-cyan transition-colors duration-200"
+              className="font-arcade text-[9px] uppercase text-foreground hover:text-arcade-yellow transition-colors duration-200"
             >
               {link.label}
             </a>
@@ -56,7 +56,7 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden text-foreground"
+          className="lg:hidden text-arcade-pink"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -64,13 +64,13 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border px-4 pb-4">
+        <div className="lg:hidden bg-background border-t-4 border-arcade-pink px-4 pb-4">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="block py-2 font-display text-sm uppercase tracking-widest text-muted-foreground hover:text-neon-cyan transition-colors"
+              className="block py-3 font-arcade text-[10px] uppercase text-foreground hover:text-arcade-yellow transition-colors border-b border-arcade-pink/20"
             >
               {link.label}
             </a>
