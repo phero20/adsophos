@@ -10,7 +10,13 @@ const features = [
 ];
 
 const AboutSection = () => (
-  <section id="about" className="relative py-24 px-4">
+  <section id="about" className="relative py-24 px-4 arcade-grid-bg">
+    {/* Pixel heart health bar decoration */}
+    <div className="absolute top-8 right-8 flex gap-1 opacity-20">
+      {[...Array(5)].map((_, i) => (
+        <span key={i} className="text-neon-red text-lg">❤️</span>
+      ))}
+    </div>
     <div className="container mx-auto max-w-5xl">
       <motion.h2
         className="font-arcade text-lg md:text-2xl text-center text-glow-pink mb-4"
