@@ -1,79 +1,170 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo3.png"; // Combined MJ college logo
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo3.png";
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "History", href: "#history" },
-  { label: "Events", href: "#events" },
-  { label: "Schedule", href: "#schedule" },
+  { label: "ABOUT", href: "#about" },
+  { label: "HISTORY", href: "#history" },
+  { label: "EVENTS", href: "#events" },
+  { label: "SCHEDULE", href: "#schedule" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "CONTACT", href: "#contact" },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navbar if scrolled to top
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+        setScrolled(false);
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrolling down - hide navbar
+        setIsVisible(false);
+        setScrolled(true);
+      } else {
+        // Scrolling up - show navbar
+        setIsVisible(true);
+        setScrolled(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-sm border-b-4 border-arcade-pink" : "bg-background border-b-4 border-arcade-pink"
+    <motion.nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? "bg-black/30 backdrop-blur-xl border-b border-arcade-pink/30" 
+          : "bg-black/20"
       }`}
+      initial={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : "-100%" }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}
     >
-      <div className="container mx-auto flex items-center justify-between py-2 px-4">
-        <a href="#" className="flex items-center group">
+      {/* THIN TOP ACCENT LINE */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-arcade-yellow" />
+
+      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+        {/* LOGO */}
+        <motion.a
+          href="#"
+          className="flex items-center flex-shrink-0"
+          whileHover={{ scale: 0.98 }}
+          transition={{ duration: 0.3 }}
+        >
           <img
             src={logo}
-            alt="Muffakham Jah College"
-            className="h-10 md:h-12 w-auto"
+            alt="Adsophos 2026"
+            className="h-12 w-auto"
           />
-        </a>
+        </motion.a>
 
-        {/* Desktop */}
-        <div className="hidden lg:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
+        {/* DESKTOP NAVIGATION */}
+        <div className="hidden lg:flex items-center gap-12">
+          {navLinks.map((link, idx) => (
+            <motion.div
               key={link.href}
-              href={link.href}
-              className="font-arcade text-[9px] uppercase text-foreground hover:text-arcade-yellow transition-colors duration-200"
+              className="relative"
+              onMouseEnter={() => setActiveLink(link.label)}
+              onMouseLeave={() => setActiveLink(null)}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.05 }}
             >
-              {link.label}
-            </a>
+              <a
+                href={link.href}
+                className={`text-xs font-body font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                  activeLink === link.label
+                    ? "text-arcade-yellow"
+                    : "text-foreground/70 hover:text-foreground"
+                }`}
+              >
+                {link.label}
+              </a>
+
+              {/* BOTTOM BORDER INDICATOR */}
+              <motion.div
+                className="absolute -bottom-1 left-0 h-0.5 bg-arcade-yellow"
+                initial={false}
+                animate={activeLink === link.label ? { width: "100%" } : { width: "0%" }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              />
+            </motion.div>
           ))}
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden text-arcade-pink"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* RIGHT SECTION */}
+        <div className="flex items-center gap-4">
+          {/* REGISTER BUTTON - Clean & Professional */}
+          <Button asChild variant="default" className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2">
+            <a href="#contact">REGISTER</a>
+          </Button>
+
+          {/* MOBILE TOGGLE */}
+          <motion.button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden p-2 border-2 border-arcade-pink/50 hover:border-arcade-pink transition-colors duration-300"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {mobileOpen ? (
+              <X size={20} className="text-arcade-yellow" strokeWidth={2.5} />
+            ) : (
+              <Menu size={20} className="text-arcade-pink" strokeWidth={2.5} />
+            )}
+          </motion.button>
+        </div>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-background border-t-4 border-arcade-pink px-4 pb-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="block py-3 font-arcade text-[10px] uppercase text-foreground hover:text-arcade-yellow transition-colors border-b border-arcade-pink/20"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </nav>
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="lg:hidden border-t border-arcade-pink/20 bg-black/20 backdrop-blur-lg"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex flex-col">
+              {navLinks.map((link, idx) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-6 py-4 border-b border-arcade-pink/15 text-xs font-body font-bold uppercase tracking-[0.15em] text-foreground/80 hover:text-arcade-yellow hover:bg-arcade-pink/5 transition-colors duration-300 last:border-b-0"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: idx * 0.08 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+
+              {/* MOBILE CTA */}
+              <Button asChild variant="default" className="mx-6 my-4 px-6 py-3 font-body font-bold text-xs tracking-[0.1em] text-center">
+                <a href="#contact" onClick={() => setMobileOpen(false)}>REGISTER</a>
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 
