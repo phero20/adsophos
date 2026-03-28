@@ -118,7 +118,7 @@ const Navbar = () => {
           {/* MOBILE TOGGLE */}
           <motion.button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 border-2 border-arcade-pink/50 hover:border-arcade-pink transition-colors duration-300"
+            className="lg:hidden p-2  hover:border-arcade-pink transition-colors duration-300"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
           >
