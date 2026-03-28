@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Timer, X, Gamepad2, RotateCcw, Clock } from "lucide-react";
+import { Timer, X, Gamepad2, RotateCcw, Clock, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 
 interface PacmanGameProps {
   onClose: () => void;
@@ -176,45 +176,69 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-2 md:p-8 bg-black/80 backdrop-blur-md">
       <motion.div 
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-md bg-zinc-950 border-4 relative overflow-hidden flex flex-col items-center p-6"
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        className="w-full max-w-[95vw] md:max-w-2xl bg-zinc-950 border-4 flex flex-col p-4 md:p-8 max-h-[98vh] overflow-y-auto overflow-x-hidden"
         style={{
           borderColor: `hsl(var(--arcade-pink))`,
           boxShadow: `8px 8px 0px 0px hsl(var(--arcade-cyan))`,
         }}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors z-[100]">
-          <X size={24} />
+        <button onClick={onClose} className="absolute top-2 right-2 md:top-4 md:right-4 text-zinc-500 hover:text-white transition-colors z-[100] bg-zinc-900 border-2 p-1 border-zinc-800">
+          <X size={20} />
         </button>
 
-        <div className="flex items-center gap-3 mb-6 border-b-2 border-zinc-800 pb-4 w-full justify-center">
-          <Gamepad2 className="text-arcade-yellow" />
-          <h2 className="font-arcade text-xl md:text-2xl text-white tracking-widest uppercase">ADSOPHOS MAN</h2>
+        {/* Title */}
+        <div className="flex items-center gap-3 mb-4 md:mb-6 border-b-4 border-zinc-900 pb-4 w-full justify-center mt-2 md:mt-0 relative z-10">
+          <Gamepad2 className="text-arcade-yellow w-6 h-6 md:w-8 md:h-8" />
+          <h2 className="font-arcade text-xl md:text-4xl text-white tracking-widest uppercase" style={{ textShadow: "3px 3px 0px hsl(var(--arcade-pink))" }}>ADSOPHOS MAN</h2>
         </div>
 
-        <div className="w-full h-[320px] md:h-[400px] bg-black border-4 border-zinc-800 relative overflow-hidden flex items-center justify-center">
+        {/* Score Board */}
+        <div className="w-full grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-6 bg-zinc-900 border-2 border-zinc-800 p-2 md:p-4 shrink-0 relative z-10">
+          <div className="flex flex-col items-center">
+             <span className="font-body font-bold text-[8px] md:text-[10px] text-arcade-pink uppercase mb-1">SCORE</span>
+             <span className="font-arcade text-base md:text-2xl text-white leading-none">{score}</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+             <span className="font-body font-bold text-[8px] md:text-[10px] text-arcade-cyan uppercase mb-1 flex items-center gap-1"><Clock size={10} /> TIME</span>
+             <span className={`font-arcade text-base md:text-2xl leading-none ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-white'}`}>{Math.ceil(timeLeft)}s</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+             <span className="font-body font-bold text-[8px] md:text-[10px] text-arcade-yellow uppercase mb-1 whitespace-nowrap">HIGH SCORE</span>
+             <span className="font-arcade text-base md:text-2xl text-white leading-none">{highScore}</span>
+          </div>
+        </div>
+
+        {/* Game Canvas */}
+        <div className="w-full max-w-[320px] md:max-w-none md:w-4/5 mx-auto border-4 border-zinc-800 relative bg-black shrink-0 aspect-square shadow-[inset_0_0_30px_rgba(0,0,0,0.9)] flex items-center justify-center">
+           {/* CRT Scanline Overlay */}
+           <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:100%_4px] z-[50]"></div>
+
            <canvas 
              ref={canvasRef} 
              width={GAME_SIZE} 
              height={GAME_SIZE} 
-             className={`w-full h-full block ${gameState === "playing" ? "opacity-100" : "opacity-0"}`} 
+             className={`w-full h-full block object-contain ${gameState === "playing" ? "opacity-100" : "opacity-0"}`} 
            />
 
-           <div className={`absolute inset-0 flex flex-col items-center justify-center bg-black/95 z-[60] p-6 text-center ${gameState === "playing" ? "hidden" : "flex"}`}>
+           {/* Start/End Menus */}
+           <div className={`absolute inset-0 flex flex-col items-center justify-center bg-black/95 z-[60] p-4 md:p-8 text-center ${gameState === "playing" ? "hidden" : "flex"}`}>
                 {gameState === "start" ? (
-                  <div className="flex flex-col items-center">
-                    <h3 className="font-arcade text-3xl text-arcade-yellow mb-6">READY?</h3>
-                    <div className="border-2 border-zinc-800 bg-zinc-950 p-4 mb-8">
-                        <p className="font-body font-bold text-xs text-zinc-400 uppercase tracking-widest leading-loose">
+                  <div className="flex flex-col items-center w-full">
+                    <h3 className="font-arcade text-2xl md:text-4xl text-arcade-yellow mb-6">READY?</h3>
+                    <div className="border-2 border-zinc-800 bg-zinc-950 p-4 md:p-6 mb-6 md:mb-8 w-[90%] md:w-full max-w-xs">
+                        <p className="font-body font-bold text-[9px] md:text-xs text-zinc-400 uppercase tracking-widest leading-loose">
                         COLLECT PELLETS (+10)<br/>
                         AVOID THE GHOSTS!<br/><br/>
-                        <span className="text-arcade-cyan">WASD / ARROW KEYS</span>
+                        <span className="text-arcade-cyan whitespace-nowrap">WASD / ARROW KEYS</span>
                         </p>
                     </div>
-                    <button onClick={startGame} className="font-arcade text-sm px-8 py-4 bg-zinc-900 border-2 text-white hover:bg-zinc-800 transition-colors"
+                    <button onClick={startGame} className="font-arcade text-sm md:text-base px-6 md:px-8 py-3 md:py-4 bg-zinc-900 border-2 text-white hover:bg-zinc-800 hover:-translate-y-1 transition-all"
                         style={{
                             borderColor: `hsl(var(--arcade-pink))`,
                             boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
@@ -223,55 +247,41 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center">
-                    <h3 className="font-arcade text-4xl text-arcade-pink mb-4" style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}>GAME OVER</h3>
-                    <div className="border-2 border-zinc-800 bg-zinc-950 px-8 py-4 mb-8">
-                        <p className="font-arcade text-2xl text-arcade-yellow">{score} PTS</p>
+                  <div className="flex flex-col items-center w-full">
+                    <h3 className="font-arcade text-3xl md:text-5xl text-arcade-pink mb-4" style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}>GAME OVER</h3>
+                    <div className="border-2 border-zinc-800 bg-zinc-950 px-8 py-4 mb-6 md:mb-8">
+                        <p className="font-arcade text-xl md:text-3xl text-arcade-yellow">{score} PTS</p>
                     </div>
                     
-                    <div className="flex flex-col gap-4 w-full px-10">
-                       <button onClick={startGame} className="flex items-center justify-center gap-2 font-arcade text-xs py-4 bg-zinc-900 border-2 text-white hover:bg-zinc-800 transition-colors"
+                    <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto px-4">
+                       <button onClick={startGame} className="flex items-center justify-center gap-2 font-arcade text-xs md:text-sm px-8 py-3 md:py-4 bg-zinc-900 border-2 text-white hover:bg-zinc-800 hover:-translate-y-1 transition-all"
                         style={{
                             borderColor: `hsl(var(--arcade-pink))`,
                             boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
                         }}>
-                         <RotateCcw size={14} /> REPLAY
+                         <RotateCcw size={16} /> REPLAY
                        </button>
-                       <button onClick={onClose} className="font-body font-bold text-xs py-4 bg-zinc-900 border-2 border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors">
+                       <button onClick={onClose} className="font-body font-bold text-xs md:text-sm px-8 py-3 md:py-4 bg-zinc-900 border-2 border-zinc-700 text-zinc-400 hover:text-white hover:-translate-y-1 transition-all">
                          QUIT
                        </button>
                     </div>
                   </div>
                 )}
            </div>
-
-           {/* Mobile Controls (Overlay Grid) */}
-           {gameState === "playing" && (
-             <div className="absolute inset-0 md:hidden grid grid-cols-2 grid-rows-2 z-[70]">
-                 <button onClick={() => pacDir.current = { x: 0, y: -1 }} className="border border-white/5 bg-white/5 active:bg-white/10 text-[8px] font-arcade text-white/20">UP</button>
-                 <button onClick={() => pacDir.current = { x: 0, y: 1 }} className="border border-white/5 bg-white/5 active:bg-white/10 text-[8px] font-arcade text-white/20">DOWN</button>
-                 <button onClick={() => pacDir.current = { x: -1, y: 0 }} className="border border-white/5 bg-white/5 active:bg-white/10 text-[8px] font-arcade text-white/20">LEFT</button>
-                 <button onClick={() => pacDir.current = { x: 1, y: 0 }} className="border border-white/5 bg-white/5 active:bg-white/10 text-[8px] font-arcade text-white/20">RIGHT</button>
-             </div>
-           )}
         </div>
 
-        <div className="w-full flex justify-between items-center mt-6">
-          <div className="flex flex-col">
-             <span className="font-arcade text-[7px] text-muted-foreground uppercase opacity-70 mb-1">Score</span>
-             <span className="font-arcade text-lg text-arcade-yellow leading-none">{score}</span>
+        {/* Mobile controls strictly below canvas */}
+        {gameState === "playing" && (
+          <div className="mt-4 md:hidden grid grid-cols-3 gap-2 w-48 mx-auto shrink-0 relative z-10 bottom-0 pb-2">
+             <div />
+             <button onTouchStart={(e) => { e.preventDefault(); pacDir.current = { x: 0, y: -1 } }} className="bg-zinc-900 border-b-4 border-zinc-800 active:border-b-0 active:translate-y-1 h-12 flex items-center justify-center text-arcade-pink"><ArrowUp size={24} /></button>
+             <div />
+             <button onTouchStart={(e) => { e.preventDefault(); pacDir.current = { x: -1, y: 0 } }} className="bg-zinc-900 border-b-4 border-zinc-800 active:border-b-0 active:translate-y-1 h-12 flex items-center justify-center text-arcade-pink"><ArrowLeft size={24} /></button>
+             <button onTouchStart={(e) => { e.preventDefault(); pacDir.current = { x: 0, y: 1 } }} className="bg-zinc-900 border-b-4 border-zinc-800 active:border-b-0 active:translate-y-1 h-12 flex items-center justify-center text-arcade-pink"><ArrowDown size={24} /></button>
+             <button onTouchStart={(e) => { e.preventDefault(); pacDir.current = { x: 1, y: 0 } }} className="bg-zinc-900 border-b-4 border-zinc-800 active:border-b-0 active:translate-y-1 h-12 flex items-center justify-center text-arcade-pink"><ArrowRight size={24} /></button>
           </div>
-          
-          <div className="flex flex-col items-center">
-             <Clock className="text-arcade-cyan mb-1 w-4 h-4" />
-             <span className="font-arcade text-xs text-arcade-cyan leading-none">{Math.ceil(timeLeft)}s</span>
-          </div>
+        )}
 
-          <div className="flex flex-col items-end">
-             <span className="font-arcade text-[7px] text-muted-foreground uppercase opacity-70 mb-1">High Score</span>
-             <span className="font-arcade text-lg text-white leading-none">{highScore}</span>
-          </div>
-        </div>
       </motion.div>
     </div>
   );
