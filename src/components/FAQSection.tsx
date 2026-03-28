@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useVelocity, useSpring, useAnimationFrame, useMotionValue } from "framer-motion";
 import { ChevronDown, Plus, HelpCircle, HelpingHand, MapPin } from "lucide-react";
 
 // Reusable: split text into chars for stagger animation
@@ -23,6 +23,37 @@ const SplitText = ({ text, className, delay = 0 }: { text: string; className?: s
     </span>
   );
 };
+
+function ParallaxDivider({ className, baseVelocity = 20 }: { className: string; baseVelocity?: number }) {
+  const baseX = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const directionFactor = useRef<number>(baseVelocity < 0 ? -1 : 1);
+
+  useAnimationFrame((t, delta) => {
+    let moveBy = directionFactor.current * Math.abs(baseVelocity) * (delta / 1000);
+    const velocity = smoothVelocity.get();
+
+    if (velocity < 0) {
+      directionFactor.current = -1;
+    } else if (velocity > 0) {
+      directionFactor.current = 1;
+    }
+
+    moveBy += directionFactor.current * Math.abs(velocity) * 0.0020;
+
+    let nextX = baseX.get() + moveBy;
+    nextX = ((nextX % 16) + 16) % 16;
+    baseX.set(nextX - 16);
+  });
+
+  return (
+    <div className="w-[110vw] -ml-[5vw] overflow-hidden">
+      <motion.div style={{ x: baseX }} className={`w-full ${className}`} />
+    </div>
+  );
+}
 
 const faqs = [
   {
@@ -146,9 +177,10 @@ const FAQSection = () => {
         </div>
       </div>
       
-      <div className="pixel-divider-yellow mt-20" />
+      <ParallaxDivider className="pixel-divider-yellow mt-20" baseVelocity={20} />
     </section>
   );
 };
 
 export default FAQSection;
+
