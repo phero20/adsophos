@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import logo from "@/assets/adsophos-logo.png";
 import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
+import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
       <AnimatedShaderBackground />
@@ -12,11 +12,12 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 z-[1] pointer-events-none opacity-[0.04]"
         style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px)',
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px)",
         }}
       />
 
-      <div className="relative z-10 flex flex-col items-center justify-center mt-12 md:mt-20">
+      <div className="relative z-10 flex flex-col items-center justify-center mt-12">
         <motion.img
           layoutId="main-logo"
           src={logo}
@@ -26,63 +27,89 @@ const HeroSection = () => {
         />
 
         <motion.h1
-          className="font-arcade text-4xl md:text-6xl lg:text-7xl text-white mb-2 tracking-wide hero-title-glow"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          className="font-arcade text-3xl md:text-5xl lg:text-7xl text-white tracking-[0.1em] uppercase flex justify-center"
           style={{
-            WebkitTextStroke: '2px hsl(340, 100%, 57%)',
-            paintOrder: 'stroke fill',
+            textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,0.5)",
           }}
-        >
-          ADSOPHOS
-        </motion.h1>
-
-        <motion.p
-          className="font-display text-4xl md:text-6xl lg:text-7xl text-arcade-yellow mb-2 hero-year-glow"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 0.2, type: "spring", bounce: 0.5 }}
         >
-          2026
-        </motion.p>
+          {"ADSOPHOS".split("").map((letter, index) => (
+            <motion.span
+              key={index}
+              className="inline-block hover:text-arcade-yellow cursor-default"
+              whileHover={{
+                rotate: index % 2 === 0 ? 10 : -10,
+                scale: 1.2,
+                y: -10,
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </motion.h1>
 
         <motion.div
-          className="flex flex-col items-center gap-3 mb-12 mt-4"
+          className="flex items-center gap-4 mt-2 mb-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, type: "spring", bounce: 0.5 }}
+        >
+          <div className="h-1 w-12 md:w-16 bg-arcade-pink" style={{ boxShadow: "2px 2px 0px rgba(0,0,0,0.8)" }} />
+          <motion.p
+            className="font-arcade text-xl md:text-3xl lg:text-5xl text-arcade-yellow tracking-widest cursor-default relative"
+            style={{
+              textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,0.8)",
+            }}
+            whileHover={{ 
+              scale: 1,
+              rotate: -5,
+              textShadow: "4px 4px 0px #ec4899, 8px 8px 0px rgba(0,0,0,0.8)",
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            2026
+          </motion.p>
+          <div className="h-1 w-12 md:w-16 bg-arcade-pink" style={{ boxShadow: "2px 2px 0px rgba(0,0,0,0.8)" }} />
+        </motion.div>
+
+        <motion.div
+          className="flex flex-col items-center gap-2 mb-12 mt-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.6 }}
         >
-          <p className="font-arcade text-xs md:text-xl text-center text-arcade-yellow tracking-widest hero-glow">
+          <p 
+            className="font-arcade text-xs md:text-sm text-center text-arcade-yellow tracking-widest"
+            style={{ textShadow: "2px 2px 0px rgba(0,0,0,0.8)" }}
+          >
             LEVEL UP YOUR CURIOSITY
           </p>
-          <p className="font-arcade text-[10px] md:text-sm text-center text-white tracking-[0.2em] uppercase">
+          <p 
+            className="font-arcade text-[10px] md:text-xs text-center text-white tracking-[0.2em] uppercase"
+            style={{ textShadow: "2px 2px 0px rgba(0,0,0,0.8)" }}
+          >
             9TH & 10TH APRIL
           </p>
         </motion.div>
 
-        <motion.div className="flex flex-col sm:flex-row gap-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
-          <motion.a
-            href="#events"
-            className="font-arcade text-[10px] md:text-xs px-8 py-4 bg-arcade-pink text-primary-foreground pixel-btn"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            EXPLORE EVENTS
-          </motion.a>
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-2"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.2, type: "spring", bounce: 0.6 }}
+        >
+          <Button asChild variant="default" size="default">
+            <a href="#events">EXPLORE EVENTS</a>
+          </Button>
 
-          <motion.a
-            href="#contact"
-            className="font-arcade text-[10px] md:text-xs px-8 py-4 bg-background text-arcade-yellow pixel-btn-yellow"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            CONTACT US
-          </motion.a>
+          <Button asChild variant="yellow" size="default">
+            <a href="#contact">CONTACT US</a>
+          </Button>
         </motion.div>
       </div>
-
-
     </section>
   );
 };
