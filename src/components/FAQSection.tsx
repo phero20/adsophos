@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ChevronDown, Plus, HelpCircle, HelpingHand } from "lucide-react";
+import { ChevronDown, Plus, HelpCircle, HelpingHand, MapPin } from "lucide-react";
 
 // Reusable: split text into chars for stagger animation
 const SplitText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
@@ -51,7 +51,18 @@ const faqs = [
   },
   {
     q: "Where will Adsophos 2026 be conducted?",
-    a: "Adsophos 2026 will be conducted at: \n\n📍 Muffakham Jah College of Engineering and Technology\n📍 Hyderabad\n\nThe exact venue details will also be available on the website."
+    a: (
+      <div className="flex flex-col gap-2">
+        <span>Adsophos 2026 will be conducted at:</span>
+        <div className="flex flex-col gap-2 ml-1 my-1">
+          <span className="flex items-center gap-2">
+            <MapPin size={16} className="text-arcade-yellow shrink-0" />
+            <span className="text-zinc-300">Muffakham Jah College of Engineering and Technology, Hyderabad</span>
+          </span>
+        </div>
+        <span>The exact venue details will also be available on the website.</span>
+      </div>
+    )
   }
 ];
 
@@ -93,10 +104,10 @@ const FAQSection = () => {
                 borderColor: `hsl(var(--arcade-pink))`,
                 boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
               }}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: .2, delay: i * 0.05 }}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
@@ -123,9 +134,9 @@ const FAQSection = () => {
                     className="overflow-hidden"
                   >
                     <div className="p-6 pt-2 ml-11 border-t-2 border-arcade-pink/30">
-                       <p className="font-body text-sm text-foreground leading-relaxed whitespace-pre-line">
+                       <div className="font-body text-sm text-foreground leading-relaxed whitespace-pre-line">
                           {faq.a}
-                       </p>
+                       </div>
                     </div>
                   </motion.div>
                 )}
