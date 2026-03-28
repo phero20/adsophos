@@ -43,7 +43,7 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
     window.addEventListener("keyup", handleKeyUp);
 
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
       if (frameId.current) cancelAnimationFrame(frameId.current);
