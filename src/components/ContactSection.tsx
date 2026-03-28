@@ -5,7 +5,8 @@ const ContactSection = () => (
   <section id="contact" className="relative py-20 px-4 scroll-mt-24">
     <div className="container mx-auto max-w-4xl">
       <motion.h2
-        className="font-display text-4xl md:text-6xl text-center text-arcade-pink mb-2"
+        className="font-arcade text-4xl md:text-6xl text-center text-arcade-yellow mb-2"
+        style={{ textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)" }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
