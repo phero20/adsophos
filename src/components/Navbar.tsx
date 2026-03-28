@@ -112,7 +112,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {/* REGISTER BUTTON - Clean & Professional */}
           <Button asChild variant="default" className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2">
-            <a href="#contact">REGISTER</a>
+            <a href="#events">REGISTER</a>
           </Button>
 
           {/* MOBILE TOGGLE */}

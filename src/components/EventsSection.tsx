@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { Button } from "./ui/button";
 import { Arrow } from "@radix-ui/react-tooltip";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Reusable: split text into chars for stagger animation
 const SplitText = ({
@@ -43,7 +44,7 @@ const SplitText = ({
   );
 };
 
-const eventCards = [
+export const eventCards = [
   {
     title: "Paper Presentation",
     image:
@@ -146,11 +147,10 @@ const EventsSection = () => (
                   variant="default"
                   className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2"
                 >
-                  <div>
-                    <a href="#contact">REGISTER</a>
-                  <ArrowRight className="ml-2 text-white" size={16} />
-                  </div>
-                  
+                  <Link to={`/register?event=${encodeURIComponent(evt.title)}`}>
+                    REGISTER
+                    <ArrowRight className="ml-2 text-white" size={16} />
+                  </Link>
                 </Button>
               </div>
             </div>

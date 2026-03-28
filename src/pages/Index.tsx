@@ -14,6 +14,8 @@ import Footer from "@/components/Footer";
 import JoystickTrigger from "@/components/ui/joystick-trigger";
 
 
+import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
+
 const items = [
   { text: "ADSOPHOS 2026", accent: false },
   { text: "✦", accent: true },
@@ -65,11 +67,19 @@ const Index = () => {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <>
+    <div className="bg-[#060610] min-h-screen relative overflow-clip">
+      <div className="absolute top-0 left-0 w-full h-screen z-0 pointer-events-none overflow-hidden">
+        <AnimatedShaderBackground />
+      </div>
+
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
-      <div className="relative z-10">
+      
+      <div 
+        className="relative z-10 duration-700 transition-opacity"
+        style={{ opacity: loaded ? 1 : 0, pointerEvents: loaded ? "auto" : "none" }}
+      >
         <Navbar />
-        <HeroSection />
+        <HeroSection loaded={loaded} />
         <InfoBanner />
         <AboutSection />
         <HistorySection />
@@ -80,7 +90,7 @@ const Index = () => {
         <JoystickTrigger />
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 
