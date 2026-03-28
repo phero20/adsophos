@@ -30,20 +30,22 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
     const saved = localStorage.getItem("adsophos_pac_highscore");
     if (saved) setHighScore(parseInt(saved));
 
+    // Save previous overflow state to restore it exactly instead of guessing
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const handleKeyDown = (e: KeyboardEvent) => { 
+    const handleKeyDown = (e: KeyboardEvent) => {
         if(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)) {
             e.preventDefault();
         }
-        keys.current[e.key] = true; 
+        keys.current[e.key] = true;
     };
-    const handleKeyUp = (e: KeyboardEvent) => { keys.current[e.key] = false; };
+    const handleKeyUp = (e: KeyboardEvent) => { keys.current[e.key] = false; }; 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
       if (frameId.current) cancelAnimationFrame(frameId.current);
