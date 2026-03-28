@@ -44,7 +44,7 @@ const SplitText = ({
 
 const ContactSection = () => (
   <section id="contact" className="relative py-20 px-4 scroll-mt-24">
-    <div className="container mx-auto max-w-4xl">
+    <div className="container mx-auto max-w-4xl px-3">
       <div className="flex flex-col items-center justify-center mb-6 mt-10">
         <div className="overflow-hidden mb-1">
           <h2

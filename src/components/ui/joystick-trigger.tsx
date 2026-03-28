@@ -54,10 +54,14 @@ const JoystickTrigger = () => {
                     initial={{ opacity: 0, scale: 0.5, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.5, y: -20 }}
-                    className="bg-arcade-pink px-6 py-3 pixel-border shadow-[0_0_20px_rgba(255,45,120,0.5)] flex items-center gap-3 mb-4 pointer-events-auto"
+                    className="bg-zinc-950 border-4 p-4 flex items-center gap-3 mb-4 pointer-events-auto"
+                    style={{
+                        borderColor: `hsl(var(--arcade-pink))`,
+                        boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
+                    }}
                 >
-                    <Sparkles className="text-white animate-pulse" />
-                    <span className="font-arcade text-[10px] text-white tracking-widest leading-none">🎮 SECRET LEVEL UNLOCKED</span>
+                    <Sparkles className="text-arcade-yellow animate-pulse" />
+                    <span className="font-body font-bold text-xs text-white tracking-widest leading-none">🎮 SECRET LEVEL UNLOCKED</span>
                 </motion.div>
             )}
         </AnimatePresence>
@@ -70,16 +74,20 @@ const JoystickTrigger = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ 
             opacity: 1, 
-            scale: isHolding ? 1.2 : 1,
+            scale: isHolding ? 1.1 : 1,
             rotate: isHolding ? [0, -5, 5, 0] : 0 
           }}
-          whileHover={{ scale: 1.1, rotate: [0, 10, -10, 0] }}
+          whileHover={{ scale: 1.05, y: -4 }}
           transition={{ rotate: { repeat: isHolding ? Infinity : 0, duration: 0.2 } }}
-          className="bg-card w-16 h-16 md:w-20 md:h-20 rounded-full pixel-border border-4 border-arcade-pink flex items-center justify-center pointer-events-auto cursor-pointer group shadow-[0_0_30px_rgba(255,45,120,0.3)] hover:shadow-[0_0_50px_rgba(255,45,120,0.6)] transition-shadow"
+          className="bg-zinc-950 w-14 h-14 md:w-16 md:h-16 border-4 flex items-center justify-center pointer-events-auto cursor-pointer group transition-all"
+          style={{
+            borderColor: `hsl(var(--arcade-pink))`,
+            boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
+          }}
         >
-          <div className={`relative ${isHolding ? "animate-bounce" : "animate-float"}`}>
-             <Gamepad2 className="w-8 h-8 md:w-10 md:h-10 text-arcade-pink group-hover:text-white transition-colors" />
-             <div className="absolute -top-1 -right-1 w-3 h-3 bg-arcade-yellow rounded-full animate-pulse shadow-[0_0_10px_#FFD700]" />
+          <div className={`relative ${isHolding ? "animate-bounce" : ""}`}>
+             <Gamepad2 className="w-6 h-6 md:w-8 md:h-8 text-arcade-pink group-hover:text-arcade-yellow transition-colors" />
+             <div className="absolute -top-2 -right-2 w-2.5 h-2.5 bg-arcade-yellow animate-pulse" />
           </div>
         </motion.button>
       </div>
