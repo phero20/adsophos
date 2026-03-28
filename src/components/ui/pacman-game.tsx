@@ -182,7 +182,7 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
       <motion.div 
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-md bg-zinc-950 border-4 relative overflow-hidden flex flex-col items-center p-4 py-8"
+        className="w-full max-w-lg bg-zinc-950 border-4 relative overflow-hidden flex flex-col items-center p-4 py-8"
         style={{
           borderColor: `hsl(var(--arcade-pink))`,
           boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
