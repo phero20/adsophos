@@ -95,16 +95,20 @@ const AnimatedShaderBackground = () => {
         ctx.fill();
       });
 
-      // Horizon line
-      ctx.strokeStyle = '#FF2D78';
-      ctx.lineWidth = 3;
-      ctx.shadowColor = '#FF2D78';
-      ctx.shadowBlur = 15;
-      ctx.beginPath();
-      ctx.moveTo(0, horizon);
-      ctx.lineTo(W, horizon);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
+      // // Horizon line (centered, shorter width)
+      // const horizonWidth = W * 0.4; // Takes up 40% of the screen width
+      // const horizonStartX = (W - horizonWidth) / 2;
+      // const horizonEndX = horizonStartX + horizonWidth;
+
+      // ctx.strokeStyle = '#FF2D78';
+      // ctx.lineWidth = 3;
+      // ctx.shadowColor = '#FF2D78';
+      // ctx.shadowBlur = 15;
+      // ctx.beginPath();
+      // ctx.moveTo(horizonStartX, horizon);
+      // ctx.lineTo(horizonEndX, horizon);
+      // ctx.stroke();
+      // ctx.shadowBlur = 0;
 
       // Ground
       ctx.fillStyle = '#0a0505';
