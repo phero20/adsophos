@@ -91,7 +91,8 @@ function ParallaxDivider({ className, baseVelocity = 20 }: { className: string; 
       directionFactor.current = 1;
     }
 
-    moveBy += directionFactor.current * Math.abs(velocity) * 0.05;
+    // Reduced the scroll velocity multiplier from 0.05 to 0.015 appropriately
+    moveBy += directionFactor.current * Math.abs(velocity) * 0.0020;
     
     // Pixel divider pattern repeats every 16px (8px color, 8px transparent).
     let nextX = baseX.get() + moveBy;
@@ -238,8 +239,8 @@ const AboutSection = () => {
         {/* ── BODY COPY ─────────────────────────────────────────────────── */}
         <div className="grid md:grid-cols-2 gap-10 mb-0">
           {[
-            "ADSOPHOS 2026 is a 2-day technical fest where innovation meets entertainment. Compete, create, and celebrate technology across multiple arenas.",
-            "From high-speed battles to classic quizzes, see which teams are leading the charts. Play, compete, and claim your spot among the best.",
+            "ADSOPHOS 2026 is a dynamic two-day technical fest where innovation blends seamlessly with entertainment and culinary delight. Step into a space designed to challenge, inspire, and showcase your skills across a variety of competitive arenas.",
+            "From fast-paced showdowns to intellectually engaging quizzes, witness teams rise through the ranks and make their mark. Compete, create, and secure your place among the best.",
           ].map((para, i) => (
             <motion.p
               key={i}

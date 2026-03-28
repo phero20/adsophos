@@ -179,7 +179,8 @@ function ParallaxDivider({ className, baseVelocity = 20 }: { className: string; 
       directionFactor.current = 1;
     }
 
-    moveBy += directionFactor.current * Math.abs(velocity) * 0.05;
+    // Reduced the scroll velocity multiplier from 0.05 to 0.015 appropriately
+    moveBy += directionFactor.current * Math.abs(velocity) * 0.0020;
     
     // Pixel divider pattern repeats every 16px (8px color, 8px transparent).
     let nextX = baseX.get() + moveBy;

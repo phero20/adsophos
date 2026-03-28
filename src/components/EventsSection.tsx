@@ -1,20 +1,39 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FileText, Image, Brain, PartyPopper, Lightbulb, Key } from "lucide-react";
+import { Button } from "./ui/button";
+import { Arrow } from "@radix-ui/react-tooltip";
+import { ArrowRight } from "lucide-react";
 
 // Reusable: split text into chars for stagger animation
-const SplitText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
+const SplitText = ({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
 
   return (
-    <span ref={ref} className={className} aria-label={text} style={{ display: "inline-block" }}>
+    <span
+      ref={ref}
+      className={className}
+      aria-label={text}
+      style={{ display: "inline-block" }}
+    >
       {text.split("").map((char, i) => (
         <motion.span
           key={i}
           initial={{ opacity: 0, y: "100%", skewY: 8 }}
           animate={inView ? { opacity: 1, y: "0%", skewY: 0 } : {}}
-          transition={{ duration: 0.5, delay: delay + i * 0.032, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 0.5,
+            delay: delay + i * 0.032,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           style={{ display: "inline-block", whiteSpace: "pre" }}
         >
           {char}
@@ -24,53 +43,52 @@ const SplitText = ({ text, className, delay = 0 }: { text: string; className?: s
   );
 };
 
-const levels = [
+const eventCards = [
   {
-    level: 1,
     title: "Paper Presentation",
-    icon: FileText,
-    events: ["Technical Papers", "Research Showcase", "Innovation Pitches", "Case Studies"],
+    image:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
   },
   {
-    level: 2,
     title: "Poster Presentation",
-    icon: Image,
-    events: ["Creative Posters", "Infographic Design", "Visual Storytelling", "Data Visualization"],
+    image:
+      "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=800",
   },
   {
-    level: 3,
     title: "Quiz Competition",
-    icon: Brain,
-    events: ["Tech Quiz", "General Knowledge", "Rapid Fire", "Buzzer Round"],
+    image:
+      "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=800",
   },
   {
-    level: 4,
     title: "Fun Events",
-    icon: PartyPopper,
-    events: ["Treasure Hunt", "Quiz Bowl", "Meme Contest", "Talent Show"],
+    image:
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800",
   },
   {
-    level: 5,
     title: "Project Expo",
-    icon: Lightbulb,
-    events: ["IoT Projects", "AI/ML Demos", "Web Apps", "Hardware Hacks"],
+    image:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
   },
   {
-    level: 6,
     title: "Escape Room",
-    icon: Key,
-    events: ["Mystery Puzzle", "Code Breaking", "Logic Maze", "Time Challenge"],
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
 const EventsSection = () => (
-  <section id="events" className="relative py-20 px-4 arcade-grid-bg scroll-mt-24">
-    <div className="container mx-auto max-w-6xl">
+  <section
+    id="events"
+    className="relative py-20 px-0 arcade-grid-bg scroll-mt-24"
+  >
+    <div className="container mx-auto max-w-6xl px-4">
       <div className="flex flex-col items-center justify-center mb-6 mt-10">
         <div className="overflow-hidden mb-1">
           <h2
             className="font-arcade text-4xl md:text-6xl text-center text-white"
-            style={{ textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)" }}
+            style={{
+              textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)",
+            }}
           >
             <SplitText text="ENTER" delay={0.1} />
           </h2>
@@ -84,38 +102,58 @@ const EventsSection = () => (
           </h2>
         </div>
       </div>
-      <p className="text-center text-arcade-cyan mb-14 font-arcade text-[10px] sm:text-xs uppercase tracking-widest" style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}>
+      <p
+        className="text-center text-arcade-cyan mb-14 font-arcade text-[10px] sm:text-xs uppercase tracking-widest"
+        style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
+      >
         SELECT AN ARENA AND BEGIN YOUR QUEST
       </p>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {levels.map((lvl, i) => (
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-2">
+        {eventCards.map((evt, i) => (
           <motion.div
-            key={lvl.title}
-            className="relative bg-card pixel-border p-6 group cursor-pointer"
+            key={evt.title}
+            className="relative bg-zinc-950 border-4 flex flex-col group cursor-pointer"
+            style={{
+              borderColor: `hsl(var(--arcade-pink))`,
+              boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
+            }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ y: -6 }}
           >
-            <div className="flex items-center gap-3 mb-4 mt-2">
-              <lvl.icon className="w-7 h-7 text-arcade-pink" />
-              <h3 className="font-display text-xl text-foreground">{lvl.title}</h3>
+            <div
+              className="w-full aspect-video overflow-hidden border-b-4"
+              style={{ borderColor: `hsl(var(--arcade-pink))` }}
+            >
+              <img
+                src={evt.image}
+                alt={evt.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 "
+              />
             </div>
 
-            <ul className="space-y-2 mb-6">
-              {lvl.events.map((e) => (
-                <li key={e} className="flex items-center gap-2 text-muted-foreground font-body text-sm">
-                  <span className="w-2 h-2 bg-arcade-pink" />
-                  {e}
-                </li>
-              ))}
-            </ul>
+            <div className="p-5 flex flex-col flex-grow items-center text-center">
+              <h3 className="font-arcade text-lg md:text-xl text-arcade-yellow mb-6 leading-tight">
+                {evt.title}
+              </h3>
 
-            <button className="w-full font-arcade text-[9px] py-3 bg-background text-arcade-pink pixel-btn hover:bg-arcade-pink hover:text-primary-foreground transition-colors">
-              ▶ BEGIN QUEST
-            </button>
+              <div className="mt-auto w-full">
+                <Button
+                  asChild
+                  variant="default"
+                  className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2"
+                >
+                  <div>
+                    <a href="#contact">REGISTER</a>
+                  <ArrowRight className="ml-2 text-white" size={16} />
+                  </div>
+                  
+                </Button>
+              </div>
+            </div>
           </motion.div>
         ))}
       </div>
