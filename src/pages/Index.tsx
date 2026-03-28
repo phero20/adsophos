@@ -67,7 +67,7 @@ const Index = () => {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="bg-[#060610] min-h-screen relative overflow-x-hidden">
+    <div className="bg-[#060610] min-h-screen relative overflow-clip">
       <div className="absolute top-0 left-0 w-full h-screen z-0 pointer-events-none overflow-hidden">
         <AnimatedShaderBackground />
       </div>
