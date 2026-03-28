@@ -74,7 +74,7 @@ const ContactSection = () => (
           className="bg-zinc-950 border-4 p-6 md:p-8 flex flex-col group"
           style={{
             borderColor: `hsl(var(--arcade-pink))`,
-            boxShadow: `6px 6px 0px 0px hsl(var(--arcade-cyan))`,
+            boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
           }}
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -97,7 +97,7 @@ const ContactSection = () => (
               className="w-full px-4 py-4 bg-zinc-900/50 text-white font-body font-bold text-sm border-2 border-arcade-pink/30 focus:border-arcade-pink focus:outline-none transition-colors resize-none placeholder:text-zinc-600"
             />
             <Button
-              className="w-full font-body font-bold text-xs tracking-[0.1em] py-6 h-auto"
+              className="w-full font-body font-bold text-xs tracking-[0.1em] py-3 h-auto"
             >
               SEND MESSAGE
               <Send className="ml-2" size={16} />
@@ -115,7 +115,7 @@ const ContactSection = () => (
             <div className="w-12 h-12 bg-zinc-950 border-2 flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 group-hover:-translate-y-1"
               style={{
                 borderColor: `hsl(var(--arcade-pink))`,
-                boxShadow: `3px 3px 0px 0px hsl(var(--arcade-cyan))`,
+                boxShadow: `2px 2px 0px 0px hsl(var(--arcade-cyan))`,
               }}>
               <Mail className="w-5 h-5 text-arcade-yellow" />
             </div>
@@ -125,7 +125,7 @@ const ContactSection = () => (
             <div className="w-12 h-12 bg-zinc-950 border-2 flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 group-hover:-translate-y-1"
               style={{
                 borderColor: `hsl(var(--arcade-pink))`,
-                boxShadow: `3px 3px 0px 0px hsl(var(--arcade-cyan))`,
+                boxShadow: `2px 2px 0px 0px hsl(var(--arcade-cyan))`,
               }}>
               <Phone className="w-5 h-5 text-arcade-yellow" />
             </div>
@@ -135,7 +135,7 @@ const ContactSection = () => (
             <div className="w-12 h-12 bg-zinc-950 border-2 flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 group-hover:-translate-y-1"
               style={{
                 borderColor: `hsl(var(--arcade-pink))`,
-                boxShadow: `3px 3px 0px 0px hsl(var(--arcade-cyan))`,
+                boxShadow: `2px 2px 0px 0px hsl(var(--arcade-cyan))`,
               }}>
               <Phone className="w-5 h-5 text-arcade-yellow" />
             </div>
@@ -150,7 +150,7 @@ const ContactSection = () => (
                 className="w-12 h-12 bg-zinc-950 border-2 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-110 hover:-translate-y-1"
                 style={{
                   borderColor: `hsl(var(--arcade-pink))`,
-                  boxShadow: `3px 3px 0px 0px hsl(var(--arcade-cyan))`,
+                  boxShadow: `2px 2px 0px 0px hsl(var(--arcade-cyan))`,
                 }}
               >
                 <Icon size={20} />
