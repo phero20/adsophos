@@ -1,5 +1,28 @@
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { FileText, Image, Brain, PartyPopper, Lightbulb, Key } from "lucide-react";
+
+// Reusable: split text into chars for stagger animation
+const SplitText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-10%" });
+
+  return (
+    <span ref={ref} className={className} aria-label={text} style={{ display: "inline-block" }}>
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: "100%", skewY: 8 }}
+          animate={inView ? { opacity: 1, y: "0%", skewY: 0 } : {}}
+          transition={{ duration: 0.5, delay: delay + i * 0.032, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "inline-block", whiteSpace: "pre" }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </span>
+  );
+};
 
 const levels = [
   {
@@ -43,16 +66,26 @@ const levels = [
 const EventsSection = () => (
   <section id="events" className="relative py-20 px-4 arcade-grid-bg scroll-mt-24">
     <div className="container mx-auto max-w-6xl">
-      <motion.h2
-        className="font-display text-4xl md:text-6xl text-center text-arcade-yellow mb-2"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        ENTER THE ARENA
-      </motion.h2>
-      <p className="text-center text-muted-foreground mb-14 font-body text-sm uppercase tracking-widest">
-        Select an arena and begin your quest
+      <div className="flex flex-col items-center justify-center mb-6 mt-10">
+        <div className="overflow-hidden mb-1">
+          <h2
+            className="font-arcade text-4xl md:text-6xl text-center text-white"
+            style={{ textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)" }}
+          >
+            <SplitText text="ENTER" delay={0.1} />
+          </h2>
+        </div>
+        <div className="overflow-hidden">
+          <h2
+            className="font-arcade text-4xl md:text-6xl text-center text-arcade-yellow"
+            style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}
+          >
+            <SplitText text="THE ARENA" delay={0.3} />
+          </h2>
+        </div>
+      </div>
+      <p className="text-center text-arcade-cyan mb-14 font-arcade text-[10px] sm:text-xs uppercase tracking-widest" style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}>
+        SELECT AN ARENA AND BEGIN YOUR QUEST
       </p>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useVelocity, useSpring, useAnimationFrame, useMotionValue } from "framer-motion";
 import { FileText, Image, Brain, PartyPopper, Lightbulb } from "lucide-react";
 import { useRef } from "react";
 
@@ -74,6 +74,38 @@ const SplitText = ({
   );
 };
 
+function ParallaxDivider({ className, baseVelocity = 20 }: { className: string; baseVelocity?: number }) {
+  const baseX = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const directionFactor = useRef<number>(baseVelocity < 0 ? -1 : 1);
+
+  useAnimationFrame((t, delta) => {
+    let moveBy = directionFactor.current * Math.abs(baseVelocity) * (delta / 1000);
+    const velocity = smoothVelocity.get();
+    
+    if (velocity < 0) {
+      directionFactor.current = -1;
+    } else if (velocity > 0) {
+      directionFactor.current = 1;
+    }
+
+    moveBy += directionFactor.current * Math.abs(velocity) * 0.05;
+    
+    // Pixel divider pattern repeats every 16px (8px color, 8px transparent).
+    let nextX = baseX.get() + moveBy;
+    nextX = ((nextX % 16) + 16) % 16;
+    baseX.set(nextX - 16); 
+  });
+
+  return (
+    <div className="w-[110vw] -ml-[5vw] overflow-hidden">
+      <motion.div style={{ x: baseX }} className={`w-full ${className}`} />
+    </div>
+  );
+}
+
 // Horizontal marquee ticker
 const Ticker = () => {
   const items = [
@@ -117,10 +149,6 @@ const AboutSection = () => {
 
   // Parallax for the large number
   const bgNumY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
-  
-  // Horizontal scroll for pixel dividers
-  const dividerTopX = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-  const dividerBottomX = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
   return (
     <section
@@ -143,9 +171,7 @@ const AboutSection = () => {
       </motion.div>
 
       {/* ── Pixel divider top ─────────────────────────────────────────── */}
-      <motion.div style={{ x: dividerTopX }} className="w-[200vw] -ml-[50vw]">
-        <div className="pixel-divider mb-28 w-full" />
-      </motion.div>
+      <ParallaxDivider className="pixel-divider mb-28" baseVelocity={-20} />
 
       <div className="container mx-auto max-w-5xl">
         {/* ── HEADER BLOCK ─────────────────────────────────────────────── */}
@@ -248,9 +274,7 @@ const AboutSection = () => {
       </div>
 
       {/* ── Pixel divider bottom ─────────────────────────────────────────── */}
-      <motion.div style={{ x: dividerBottomX }} className="w-[200vw] -ml-[50vw]">
-        <div className="pixel-divider-yellow mt-28 w-full" />
-      </motion.div>
+      <ParallaxDivider className="pixel-divider-yellow mt-28" baseVelocity={20} />
     </section>
   );
 };
