@@ -202,11 +202,53 @@ const ScheduleSection = () => {
   ];
 
   const sectionRef = useRef<HTMLElement>(null);
-  return (
-    <section ref={sectionRef} id="schedule" className="relative py-28 px-0 scroll-mt-24 bg-zinc-950 border-y-4 border-black overflow-hidden">
-      <ParallaxDivider className="pixel-divider-yellow mb-20" baseVelocity={-20} />
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
 
-      <div className="container mx-auto max-w-5xl px-4">
+  // Parallax for the large ghost text
+  const bgTextY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  return (
+    <section ref={sectionRef} id="schedule" className="relative py-28 px-0 scroll-mt-24 bg-zinc-950 border-y-4 border-black overflow-hidden z-10">
+      
+      {/* ── Background large ghost text (Left) ─────────────────────────────────── */}
+      <motion.div
+        style={{ y: bgTextY }}
+        className="pointer-events-none absolute -left-6 md:left-12 top-1/4 flex flex-col gap-4 md:gap-8 items-start select-none z-0 opacity-5"
+        aria-hidden
+      >
+        {"TIMELINE".split("").map((char, i) => (
+          <span
+            key={`tl-${i}`}
+            className="font-arcade text-[12vmax] md:text-[14vmax] leading-[0.8] text-white block"
+          >
+            {char}
+          </span>
+        ))}
+      </motion.div>
+
+      {/* ── Background large ghost text (Right) ─────────────────────────────────── */}
+      <motion.div
+        style={{ y: bgTextY }}
+        className="pointer-events-none absolute -right-6 md:right-16 top-1/3 flex flex-col gap-4 md:gap-8 items-end select-none z-0 opacity-5"
+        aria-hidden
+      >
+        {"GAME".split("").map((char, i) => (
+          <span
+            key={`g-${i}`}
+            className="font-arcade text-[12vmax] md:text-[14vmax] leading-[0.8] text-white block"
+          >
+            {char}
+          </span>
+        ))}
+      </motion.div>
+
+      <ParallaxDivider className="pixel-divider-yellow mb-20 relative z-10" baseVelocity={-20} />
+
+      <div className="container relative z-10 mx-auto max-w-5xl px-4">
         <div className="flex flex-col items-center justify-center mb-16 px-0">
           <div className="overflow-hidden mb-1">
             <h2
