@@ -176,22 +176,26 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       <motion.div 
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-md bg-card border-4 border-arcade-pink relative overflow-hidden flex flex-col items-center p-6 shadow-[0_0_50px_rgba(255,45,120,0.5)]"
+        className="w-full max-w-md bg-zinc-950 border-4 relative overflow-hidden flex flex-col items-center p-6"
+        style={{
+          borderColor: `hsl(var(--arcade-pink))`,
+          boxShadow: `8px 8px 0px 0px hsl(var(--arcade-cyan))`,
+        }}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-white transition-colors z-[100]">
+        <button onClick={onClose} className="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors z-[100]">
           <X size={24} />
         </button>
 
-        <div className="flex items-center gap-2 mb-6">
-          <Gamepad2 className="text-arcade-pink animate-pulse" />
-          <h2 className="font-display text-2xl text-white tracking-widest uppercase">ADSOPHOS MAN</h2>
+        <div className="flex items-center gap-3 mb-6 border-b-2 border-zinc-800 pb-4 w-full justify-center">
+          <Gamepad2 className="text-arcade-yellow" />
+          <h2 className="font-arcade text-xl md:text-2xl text-white tracking-widest uppercase">ADSOPHOS MAN</h2>
         </div>
 
-        <div className="w-full h-[320px] md:h-[400px] bg-black border-4 border-arcade-blue relative overflow-hidden flex items-center justify-center shadow-[inset_0_0_20px_rgba(0,184,255,0.2)]">
+        <div className="w-full h-[320px] md:h-[400px] bg-black border-4 border-zinc-800 relative overflow-hidden flex items-center justify-center">
            <canvas 
              ref={canvasRef} 
              width={GAME_SIZE} 
@@ -199,29 +203,41 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
              className={`w-full h-full block ${gameState === "playing" ? "opacity-100" : "opacity-0"}`} 
            />
 
-           <div className={`absolute inset-0 flex flex-col items-center justify-center bg-black/90 z-[60] p-6 text-center ${gameState === "playing" ? "hidden" : "flex"}`}>
+           <div className={`absolute inset-0 flex flex-col items-center justify-center bg-black/95 z-[60] p-6 text-center ${gameState === "playing" ? "hidden" : "flex"}`}>
                 {gameState === "start" ? (
                   <div className="flex flex-col items-center">
-                    <h3 className="font-arcade text-xl text-arcade-yellow mb-4 animate-pulse">READY?</h3>
-                    <p className="font-arcade text-[8px] text-white/90 mb-10 uppercase tracking-widest leading-loose">
-                      COLLECT PELLETS (+10)<br/>
-                      AVOID THE GHOSTS!<br/><br/>
-                      <span className="text-arcade-cyan">WASD / ARROW KEYS</span>
-                    </p>
-                    <button onClick={startGame} className="font-arcade text-xs px-10 py-5 bg-arcade-pink text-white pixel-btn shadow-[0_0_20px_rgba(255,45,120,0.4)]">
+                    <h3 className="font-arcade text-3xl text-arcade-yellow mb-6">READY?</h3>
+                    <div className="border-2 border-zinc-800 bg-zinc-950 p-4 mb-8">
+                        <p className="font-body font-bold text-xs text-zinc-400 uppercase tracking-widest leading-loose">
+                        COLLECT PELLETS (+10)<br/>
+                        AVOID THE GHOSTS!<br/><br/>
+                        <span className="text-arcade-cyan">WASD / ARROW KEYS</span>
+                        </p>
+                    </div>
+                    <button onClick={startGame} className="font-arcade text-sm px-8 py-4 bg-zinc-900 border-2 text-white hover:bg-zinc-800 transition-colors"
+                        style={{
+                            borderColor: `hsl(var(--arcade-pink))`,
+                            boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
+                        }}>
                       START QUEST
                     </button>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center">
-                    <h3 className="font-display text-5xl text-arcade-pink mb-4 hero-title-glow">GAME OVER</h3>
-                    <p className="font-arcade text-2xl text-arcade-yellow mb-8">{score} PTS</p>
+                    <h3 className="font-arcade text-4xl text-arcade-pink mb-4" style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}>GAME OVER</h3>
+                    <div className="border-2 border-zinc-800 bg-zinc-950 px-8 py-4 mb-8">
+                        <p className="font-arcade text-2xl text-arcade-yellow">{score} PTS</p>
+                    </div>
                     
                     <div className="flex flex-col gap-4 w-full px-10">
-                       <button onClick={startGame} className="flex items-center justify-center gap-2 font-arcade text-[9px] py-4 bg-arcade-pink text-white pixel-btn">
+                       <button onClick={startGame} className="flex items-center justify-center gap-2 font-arcade text-xs py-4 bg-zinc-900 border-2 text-white hover:bg-zinc-800 transition-colors"
+                        style={{
+                            borderColor: `hsl(var(--arcade-pink))`,
+                            boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
+                        }}>
                          <RotateCcw size={14} /> REPLAY
                        </button>
-                       <button onClick={onClose} className="font-arcade text-[10px] py-4 bg-secondary text-white pixel-btn">
+                       <button onClick={onClose} className="font-body font-bold text-xs py-4 bg-zinc-900 border-2 border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors">
                          QUIT
                        </button>
                     </div>
