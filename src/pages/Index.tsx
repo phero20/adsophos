@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import LoadingScreen from "@/components/LoadingScreen";
 import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
@@ -12,17 +13,53 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import JoystickTrigger from "@/components/ui/joystick-trigger";
 
-const MarqueeTicker = () => (
-  <div className="bg-arcade-yellow overflow-hidden py-2">
-    <div className="animate-marquee whitespace-nowrap flex">
-      {[...Array(4)].map((_, i) => (
-        <span key={i} className="font-arcade text-[9px] text-background mx-8">
-          ★ ADSOPHOS 2026 — LEVEL UP YOUR SKILLS ★ 2-DAY TECH FEST ★ PAPER PRESENTATION • POSTER PRESENTATION • QUIZ COMPETITION • FUN EVENTS ★
+
+const items = [
+  { text: "ADSOPHOS 2026", accent: false },
+  { text: "✦", accent: true },
+  { text: "LEVEL UP YOUR SKILLS", accent: false },
+  { text: "✦", accent: true },
+  { text: "2-DAY TECH FEST", accent: false },
+  { text: "✦", accent: true },
+  { text: "PAPER PRESENTATION", accent: false },
+  { text: "✦", accent: true },
+  { text: "POSTER PRESENTATION", accent: false },
+  { text: "✦", accent: true },
+  { text: "QUIZ COMPETITION", accent: false },
+  { text: "✦", accent: true },
+  { text: "FUN EVENTS", accent: false },
+  { text: "✦", accent: true },
+  { text: "PROJECT EXPO", accent: false },
+  { text: "✦", accent: true },
+];
+
+// Duplicate for seamless loop
+const track = [...items, ...items];
+
+const InfoBanner = () => (
+  <div className="w-full border-y border-arcade-pink/20 py-2.5 relative z-10 overflow-hidden bg-background">
+    <motion.div
+      className="flex gap-8 whitespace-nowrap"
+      animate={{ x: ["0%", "-50%"] }}
+      transition={{ duration: 22, ease: "linear", repeat: Infinity }}
+    >
+      {track.map((item, i) => (
+        <span
+          key={i}
+          className={`
+            font-arcade text-[9px] tracking-[0.2em] select-none shrink-0
+            ${item.accent
+              ? "text-arcade-pink/50"
+              : "text-arcade-yellow/70"}
+          `}
+        >
+          {item.text}
         </span>
       ))}
-    </div>
+    </motion.div>
   </div>
 );
+
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -33,7 +70,7 @@ const Index = () => {
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
-        <MarqueeTicker />
+        <InfoBanner />
         <AboutSection />
         <HistorySection />
         <EventsSection />
