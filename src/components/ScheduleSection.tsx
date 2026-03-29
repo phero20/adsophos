@@ -217,7 +217,7 @@ const ScheduleSection = () => {
       {/* ── Background large ghost text (Left) ─────────────────────────────────── */}
       <motion.div
         style={{ y: bgTextY }}
-        className="pointer-events-none absolute -left-6 md:left-12 top-1/4 flex flex-col gap-4 md:gap-8 items-start select-none z-0 opacity-5"
+        className="pointer-events-none absolute -left-6 md:left-12 top-[16%] flex flex-col gap-4 md:gap-8 items-start select-none z-0 opacity-5"
         aria-hidden
       >
         {"TIMELINE".split("").map((char, i) => (
