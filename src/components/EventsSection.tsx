@@ -1,9 +1,16 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "./ui/button";
-import { Arrow } from "@radix-ui/react-tooltip";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "./ui/dialog";
 
 // Reusable: split text into chars for stagger animation
 const SplitText = ({
@@ -46,43 +53,164 @@ const SplitText = ({
 
 export const eventCards = [
   {
-    title: "Paper Presentation",
+    name: "PaperX",
+    tagline: "Paper Presentation Forum",
     image:
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+    description: `PaperX is an event for participants to present their research papers and demonstrate their understanding of a chosen topic. Participants are expected to clearly explain the problem statement, discuss existing work, identify research gaps, and present their proposed solution.\nParticipants will present using a PPT and take part in a Q&A session with judges, testing 
+both their knowledge and presentation skills.The event focuses on clear understanding, 
+originality, and the ability to relate ideas to real-world applications. `,
   },
   {
-    title: "Poster Presentation",
+    name: "Canvas Clash",
+    tagline: "Poster Presentation",
     image:
       "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=800",
+    description: `Showcase your creativity, ideas, and artistic skills in Canvas Clash. Participants are required 
+to create a handmade poster based on a theme given on the spot, within the allotted time, 
+using A3 paper. \nOnce completed, participants will present their concept to the judges, explaining the idea 
+and message behind their work. The event tests creativity, presentation, and the ability to 
+express ideas visually.`,
   },
   {
-    title: "Quiz Competition",
+    name: "Auction Mania",
+    tagline: "Bid Smart. Build Strong. Win Big.",
     image:
       "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=800",
+    description: `Auction Mania brings the electrifying thrill of the IPL Auction to life! Step into the shoes of team owners, where every bid, every decision, and every player you choose shapes your path to victory.\nStart with strategy, as you plan your budget and team composition wisely. Move into the live auction, where quick thinking, smart bidding, and teamwork will give you the advantage. End with team evaluation, where the strongest and most balanced team will rise above the rest. Only the smartest team will build the ultimate squad and dominate the auction. Build your team. Win the auction. Become the champions of Auction Mania.`,
   },
   {
-    title: "Fun Events",
+    name: "Byteopia",
+    tagline: "A Fusion of Mind Games, Fueled by Speed",
     image:
       "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800",
+    description: `Byteopia offers dynamic games with a range of fast-paced, tech-driven challenges that test reflexes, focus, and thinking skills. Participants will take part in interactive activities that require speed, accuracy, and smart decision-making. Each challenge is designed to keep players engaged, encouraging quick reactions and sharp thinking in a high-energy, competitive environment where mastering diverse tasks becomes part of the thrill.`,
   },
   {
-    title: "Project Expo",
+    name: "Conquest",
+    tagline: "Outsmart. Outplay. Outlast.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
+    description: `Conquest is a multi-round challenge that pushes your speed, strategy, and teamwork to the limit. Begin with Velocity, where quick thinking and communication give you the edge. Move into Shadows & Lies, a round of puzzles, logic, and hidden truths where not everything can be trusted. End with Treasure Hunt: The Final Conquest, an intense race to decode clues and claim victory. Every round brings you closer to the top, if you can keep up. Only one team will conquer it all.`,
   },
   {
-    title: "Escape Room",
+    name: "The Gaming Lab: Outbreak edition",
+    tagline: "PLAY LIKE A LEGEND. SURVIVE LIKE A HERO.",
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
+    description: `Get ready for an action-packed gaming experience like never before! Step into the heart-pounding world of Resident Evil: Leon’s Last Mission, where survival depends on your courage, strategy, and quick decisions. Switch gears and hit the pitch with FIFA on PS5, where skill, teamwork, and competition collide. Score epic goals, outplay your opponents, and claim victory in thrilling matches. The excitement doesn’t stop there, test your aim and accuracy in the fast-paced Cup Shooting Challenge, a fun and competitive activity that keeps everyone on edge!`,
+  },
+  {
+    name: "Mission Impossible",
+    tagline: "Every Move Matters. Every Mission Counts.",
+    image:
+      "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=800",
+    description: `Mission Impossible is a fun-filled strategy and action game where teams take on exciting missions across four thrilling rounds. Each round presents different challenges from secret action missions, social missions, task missions and stealth operations. The twist? Winners of each round receive Special Power Cards that can be used to gain advantages like pausing other teams, swapping missions, sabotaging opponents, or earning bonus points. Using these powers at the right time can completely change the game. Plan smart, act fast, and stay alert because only the most strategic team will complete the missions and win the game.`,
   },
 ];
+
+const BORDER_COLOR = "hsl(var(--arcade-pink))";
+const SHADOW = "3px 3px 0px hsl(var(--arcade-cyan))";
+const SHADOW_HOVER = "5px 5px 0px hsl(var(--arcade-cyan))";
+
+const EventCard = ({
+  evt,
+  index,
+}: {
+  evt: (typeof eventCards)[0];
+  index: number;
+}) => (
+  <Dialog>
+    <motion.div
+      className="relative bg-zinc-950 border-4 border-arcade-pink flex flex-col group cursor-pointer overflow-hidden h-full"
+      style={{ boxShadow: SHADOW }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        delay: index * 0.08,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{
+        y: -6,
+        boxShadow: SHADOW_HOVER,
+      }}
+    >
+      {/* Image */}
+      <div className="w-full aspect-[16/10] overflow-hidden border-b-4 border-arcade-pink">
+        <img
+          src={evt.image}
+          alt={evt.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-4 px-3 flex flex-col flex-grow items-center text-center">
+        <h3
+          className="font-arcade text-sm md:text-base leading-tight mb-2 text-arcade-yellow"
+          style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
+        >
+          {evt.name}
+        </h3>
+        <div className="font-arcade text-[8px] md:text-[10px] mb-4 min-h-[2em] text-arcade-cyan">
+          {evt.tagline}
+        </div>
+        <DialogTrigger asChild>
+          <Button
+            variant="default"
+            className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-white transition-all duration-300 rounded-none font-arcade text-[10px]"
+          >
+            View & Register <ArrowRight className="ml-2" size={14} />
+          </Button>
+        </DialogTrigger>
+      </div>
+    </motion.div>
+
+    {/* Dialog */}
+    <DialogContent
+      className="fixed left-1/2 top-1/2 max-w-lg w-[calc(100vw-1rem)] box-border translate-x-[-50%] translate-y-[-50%] p-4 sm:p-6 overflow-x-auto overflow-y-auto max-h-[100dvh]"
+      style={{ boxShadow: SHADOW }}
+    >
+      <DialogHeader>
+        <DialogTitle
+          className="font-arcade text-arcade-yellow text-xl mb-2"
+          style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
+        >
+          {evt.name}
+        </DialogTitle>
+        <div className="text-arcade-cyan font-arcade text-xs mb-2">
+          {evt.tagline}
+        </div>
+      </DialogHeader>
+      <DialogDescription asChild>
+        <div className="whitespace-pre-line text-foreground font-body text-sm mb-4 text-left">
+          {evt.description}
+        </div>
+      </DialogDescription>
+      <DialogFooter>
+        <Button
+          asChild
+          variant="default"
+          className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-white transition-all duration-300 rounded-none"
+        >
+          <a href={`/register?event=${encodeURIComponent(evt.name)}`}>
+            Register <ArrowRight className="ml-2" size={16} />
+          </a>
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+);
 
 const EventsSection = () => (
   <section
     id="events"
     className="relative py-20 px-0 arcade-grid-bg scroll-mt-24"
   >
-    <div className="container mx-auto max-w-6xl px-4">
+    <div className="container mx-auto max-w-7xl px-4">
+      {/* Section Header */}
       <div className="flex flex-col items-center justify-center mb-6 mt-10">
         <div className="overflow-hidden mb-1">
           <h2
@@ -110,51 +238,15 @@ const EventsSection = () => (
         SELECT AN ARENA AND BEGIN YOUR QUEST
       </p>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-2">
+      {/* All 7 events — uniform card sizes, 4 per row on desktop, bottom 3 centred */}
+      <div className="flex flex-wrap justify-center gap-6 gap-y-12 px-2">
         {eventCards.map((evt, i) => (
-          <motion.div
-            key={evt.title}
-            className="relative bg-zinc-950 border-4 flex flex-col group cursor-pointer"
-            style={{
-              borderColor: `hsl(var(--arcade-pink))`,
-              boxShadow: `4px 4px 0px 0px hsl(var(--arcade-cyan))`,
-            }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            whileHover={{ y: -6 }}
+          <div
+            key={evt.name}
+            className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
           >
-            <div
-              className="w-full aspect-video overflow-hidden border-b-4"
-              style={{ borderColor: `hsl(var(--arcade-pink))` }}
-            >
-              <img
-                src={evt.image}
-                alt={evt.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 "
-              />
-            </div>
-
-            <div className="p-5 flex flex-col flex-grow items-center text-center">
-              <h3 className="font-arcade text-lg md:text-xl text-arcade-yellow mb-6 leading-tight">
-                {evt.title}
-              </h3>
-
-              <div className="mt-auto w-full">
-                <Button
-                  asChild
-                  variant="default"
-                  className="flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2"
-                >
-                  <Link to={`/register?event=${encodeURIComponent(evt.title)}`}>
-                    REGISTER
-                    <ArrowRight className="ml-2 text-white" size={16} />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </motion.div>
+            <EventCard evt={evt} index={i} />
+          </div>
         ))}
       </div>
     </div>
