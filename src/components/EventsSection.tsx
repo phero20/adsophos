@@ -145,7 +145,7 @@ const EventsSection = () => (
                 <Button
                   asChild
                   variant="default"
-                  className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2"
+                  className="flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2"
                 >
                   <Link to={`/register?event=${encodeURIComponent(evt.title)}`}>
                     REGISTER
