@@ -97,7 +97,7 @@ const ContactSection = () => (
               className="w-full px-4 py-4 bg-zinc-900/50 text-white font-body font-bold text-sm border-2 border-arcade-pink/30 focus:border-arcade-pink focus:outline-none transition-colors resize-none placeholder:text-zinc-600"
             />
             <Button
-              className="w-full font-body font-bold text-xs tracking-[0.1em] py-3 h-auto"
+              className="w-full font-body font-bold text-xs tracking-[0.1em] py-3 h-auto text-black"
             >
               SEND MESSAGE
               <Send className="ml-2" size={16} />
