@@ -227,7 +227,7 @@ const EventsSection = () => (
             className="font-arcade text-4xl md:text-6xl text-center text-arcade-yellow"
             style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}
           >
-            <SplitText text="THE ARENA" delay={0.3} />
+            <SplitText text="THE ARCADE" delay={0.3} />
           </h2>
         </div>
       </div>
