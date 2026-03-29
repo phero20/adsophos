@@ -16,8 +16,8 @@
     --popover: 0 0% 8%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 340 100% 85%;
-    --primary-foreground: 0 0% 10%;
+    --primary: 335 70% 45%;
+    --primary-foreground: 0 0% 95%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 95%;
@@ -31,14 +31,14 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 340 100% 85%;
+    --border: 335 70% 45%;
     --input: 0 0% 18%;
-    --ring: 340 100% 85%;
+    --ring: 335 70% 45%;
 
     --radius: 0px;
 
     /* ===== ARCADE NEON PALETTE ===== */
-    --arcade-pink: 340 100% 85%;
+    --arcade-pink: 335 70% 45%;
     --arcade-yellow: 45 100% 85%;
     --arcade-orange: 25 100% 85%;
     --arcade-cyan: 180 100% 30%;
@@ -50,12 +50,12 @@
     /* ===== SIDEBAR COLORS ===== */
     --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 340 100% 85%;
-    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-primary: 335 70% 45%;
+    --sidebar-primary-foreground: 0 0% 95%;
     --sidebar-accent: 0 0% 12%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 340 100% 85%;
-    --sidebar-ring: 340 100% 85%;
+    --sidebar-border: 335 70% 45%;
+    --sidebar-ring: 335 70% 45%;
 
     /* ===== TEXT GLOW EFFECTS ===== */
     --glow-pink-soft:
