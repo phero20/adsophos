@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -58,24 +58,49 @@
     --sidebar-ring: 340 100% 57%;
 
     /* ===== TEXT GLOW EFFECTS ===== */
-    --glow-pink-soft: 0 0 10px hsl(var(--arcade-pink) / 0.5), 0 0 20px hsl(var(--arcade-pink) / 0.2);
-    --glow-pink-medium: 0 0 15px hsl(var(--arcade-pink) / 0.8), 0 0 30px hsl(var(--arcade-pink) / 0.4);
-    --glow-pink-intense: 0 0 20px hsl(var(--arcade-pink) / 1), 0 0 60px hsl(var(--arcade-pink) / 0.6), 0 0 100px hsl(var(--arcade-pink) / 0.3);
+    --glow-pink-soft:
+      0 0 10px hsl(var(--arcade-pink) / 0.5),
+      0 0 20px hsl(var(--arcade-pink) / 0.2);
+    --glow-pink-medium:
+      0 0 15px hsl(var(--arcade-pink) / 0.8),
+      0 0 30px hsl(var(--arcade-pink) / 0.4);
+    --glow-pink-intense:
+      0 0 20px hsl(var(--arcade-pink) / 1),
+      0 0 60px hsl(var(--arcade-pink) / 0.6),
+      0 0 100px hsl(var(--arcade-pink) / 0.3);
 
-    --glow-yellow-soft: 0 0 10px hsl(var(--arcade-yellow) / 0.5), 0 0 20px hsl(var(--arcade-yellow) / 0.2);
-    --glow-yellow-medium: 0 0 15px hsl(var(--arcade-yellow) / 0.8), 0 0 30px hsl(var(--arcade-yellow) / 0.4);
-    --glow-yellow-intense: 0 0 20px hsl(var(--arcade-yellow) / 1), 0 0 60px hsl(var(--arcade-yellow) / 0.6), 0 0 100px hsl(var(--arcade-yellow) / 0.3);
+    --glow-yellow-soft:
+      0 0 10px hsl(var(--arcade-yellow) / 0.5),
+      0 0 20px hsl(var(--arcade-yellow) / 0.2);
+    --glow-yellow-medium:
+      0 0 15px hsl(var(--arcade-yellow) / 0.8),
+      0 0 30px hsl(var(--arcade-yellow) / 0.4);
+    --glow-yellow-intense:
+      0 0 20px hsl(var(--arcade-yellow) / 1),
+      0 0 60px hsl(var(--arcade-yellow) / 0.6),
+      0 0 100px hsl(var(--arcade-yellow) / 0.3);
 
-    --glow-cyan-soft: 0 0 10px hsl(var(--arcade-cyan) / 0.5), 0 0 20px hsl(var(--arcade-cyan) / 0.2);
-    --glow-cyan-medium: 0 0 15px hsl(var(--arcade-cyan) / 0.8), 0 0 30px hsl(var(--arcade-cyan) / 0.4);
+    --glow-cyan-soft:
+      0 0 10px hsl(var(--arcade-cyan) / 0.5),
+      0 0 20px hsl(var(--arcade-cyan) / 0.2);
+    --glow-cyan-medium:
+      0 0 15px hsl(var(--arcade-cyan) / 0.8),
+      0 0 30px hsl(var(--arcade-cyan) / 0.4);
 
-    --glow-green-soft: 0 0 10px hsl(var(--arcade-green) / 0.5), 0 0 20px hsl(var(--arcade-green) / 0.2);
-    --glow-green-medium: 0 0 15px hsl(var(--arcade-green) / 0.8), 0 0 30px hsl(var(--arcade-green) / 0.4);
+    --glow-green-soft:
+      0 0 10px hsl(var(--arcade-green) / 0.5),
+      0 0 20px hsl(var(--arcade-green) / 0.2);
+    --glow-green-medium:
+      0 0 15px hsl(var(--arcade-green) / 0.8),
+      0 0 30px hsl(var(--arcade-green) / 0.4);
 
     /* ===== BOX SHADOW / NEON EFFECTS ===== */
-    --shadow-pink-glow: 0 0 20px hsl(var(--arcade-pink) / 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
-    --shadow-yellow-glow: 0 0 20px hsl(var(--arcade-yellow) / 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
-    --shadow-cyan-glow: 0 0 20px hsl(var(--arcade-cyan) / 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-pink-glow:
+      0 0 20px hsl(var(--arcade-pink) / 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-yellow-glow:
+      0 0 20px hsl(var(--arcade-yellow) / 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-cyan-glow:
+      0 0 20px hsl(var(--arcade-cyan) / 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
     --shadow-pixel: 4px 4px 0 0;
     --shadow-pixel-lg: 8px 8px 0 0;
     --shadow-pixel-sm: 2px 2px 0 0;
@@ -84,27 +109,49 @@
     --border-pixel-thin: 2px solid hsl(var(--arcade-pink));
     --border-pixel-medium: 3px solid hsl(var(--arcade-pink));
     --border-pixel-thick: 4px solid hsl(var(--arcade-pink));
-    
+
     --border-pixel-yellow-thin: 2px solid hsl(var(--arcade-yellow));
     --border-pixel-yellow-medium: 3px solid hsl(var(--arcade-yellow));
     --border-pixel-yellow-thick: 4px solid hsl(var(--arcade-yellow));
-    
+
     --border-pixel-cyan-thin: 2px solid hsl(var(--arcade-cyan));
     --border-pixel-cyan-medium: 3px solid hsl(var(--arcade-cyan));
 
     /* ===== CRT & SCANLINE EFFECTS ===== */
-    --scanline-thin: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px);
-    --scanline-medium: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.4) 3px, rgba(0,0,0,0.4) 6px);
-    --scanline-thick: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.5) 4px, rgba(0,0,0,0.5) 8px);
-    
-    --vignette: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.4) 100%);
+    --scanline-thin: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.3) 2px,
+      rgba(0, 0, 0, 0.3) 4px
+    );
+    --scanline-medium: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.4) 3px,
+      rgba(0, 0, 0, 0.4) 6px
+    );
+    --scanline-thick: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4px,
+      rgba(0, 0, 0, 0.5) 4px,
+      rgba(0, 0, 0, 0.5) 8px
+    );
+
+    --vignette: radial-gradient(
+      circle,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
     --crt-curve: ellipse 100% 100% at 50% 50%;
 
     /* ===== ANIMATION TIMINGS ===== */
     --transition-fast: 0.1s ease-out;
     --transition-normal: 0.3s ease-out;
     --transition-slow: 0.6s ease-out;
-    
+
     --animation-arcade-pulse: 0.5s cubic-bezier(0.4, 0, 0.6, 1);
     --animation-arcade-blink: 0.6s steps(2, start);
     --animation-arcade-click: 0.15s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -136,9 +183,21 @@
     --z-topmost: 50;
 
     /* ===== GRADIENT BACKGROUNDS ===== */
-    --gradient-arcade-pink-to-purple: linear-gradient(135deg, hsl(var(--arcade-pink)), hsl(var(--arcade-purple)));
-    --gradient-arcade-yellow-to-orange: linear-gradient(135deg, hsl(var(--arcade-yellow)), hsl(var(--arcade-orange)));
-    --gradient-arcade-cyan-to-blue: linear-gradient(135deg, hsl(var(--arcade-cyan)), hsl(var(--arcade-blue)));
+    --gradient-arcade-pink-to-purple: linear-gradient(
+      135deg,
+      hsl(var(--arcade-pink)),
+      hsl(var(--arcade-purple))
+    );
+    --gradient-arcade-yellow-to-orange: linear-gradient(
+      135deg,
+      hsl(var(--arcade-yellow)),
+      hsl(var(--arcade-orange))
+    );
+    --gradient-arcade-cyan-to-blue: linear-gradient(
+      135deg,
+      hsl(var(--arcade-cyan)),
+      hsl(var(--arcade-blue))
+    );
   }
 }
 
@@ -172,15 +231,15 @@
 @layer utilities {
   /* ===== FONT FAMILIES ===== */
   .font-arcade {
-    font-family: 'Press Start 2P', cursive;
+    font-family: "Press Start 2P", cursive;
   }
 
   .font-display {
-    font-family: 'Bungee', cursive;
+    font-family: "Bungee", cursive;
   }
 
   .font-body {
-    font-family: 'Space Mono', monospace;
+    font-family: "Space Mono", monospace;
   }
 
   /* ===== TEXT GLOW UTILITIES ===== */
@@ -218,11 +277,15 @@
 
   /* ===== HERO SECTION GLOWS ===== */
   .hero-title-glow {
-    text-shadow: var(--glow-pink-intense), 0 2px 4px rgba(0, 0, 0, 0.9);
+    text-shadow:
+      var(--glow-pink-intense),
+      0 2px 4px rgba(0, 0, 0, 0.9);
   }
 
   .hero-year-glow {
-    text-shadow: var(--glow-yellow-intense), 0 2px 4px rgba(0, 0, 0, 0.9);
+    text-shadow:
+      var(--glow-yellow-intense),
+      0 2px 4px rgba(0, 0, 0, 0.9);
   }
 
   /* ===== NEON BOX GLOWS ===== */
@@ -320,12 +383,19 @@
   .arcade-grid-bg {
     background-image:
       linear-gradient(hsl(var(--arcade-pink) / 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--arcade-pink) / 0.08) 1px, transparent 1px);
+      linear-gradient(
+        90deg,
+        hsl(var(--arcade-pink) / 0.08) 1px,
+        transparent 1px
+      );
     background-size: 80px 80px;
   }
 
   .arcade-dot-bg {
-    background-image: radial-gradient(hsl(var(--arcade-cyan) / 0.04) 2px, transparent 2px);
+    background-image: radial-gradient(
+      hsl(var(--arcade-cyan) / 0.04) 2px,
+      transparent 2px
+    );
     background-size: 32px 32px;
   }
 
@@ -390,11 +460,11 @@
 
   /* ===== TEXT EFFECTS ===== */
   .outline-text {
-    text-shadow: 
-      -1px -1px 0 #000,  
-       1px -1px 0 #000,
-      -1px  1px 0 #000,
-       1px  1px 0 #000;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
   }
 
   .blink-text {
@@ -403,18 +473,21 @@
 
   /* ===== CRT EFFECTS ===== */
   .scanlines {
-    background: linear-gradient(
-      to bottom,
-      rgba(18, 16, 16, 0) 50%,
-      rgba(0, 0, 0, 0.25) 50%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 0, 0, 0.06),
-      rgba(0, 255, 0, 0.02),
-      rgba(0, 0, 255, 0.06)
-    );
-    background-size: 100% 2px, 3px 100%;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.06),
+        rgba(0, 255, 0, 0.02),
+        rgba(0, 0, 255, 0.06)
+      );
+    background-size:
+      100% 2px,
+      3px 100%;
   }
 
   .crt-vignette {
@@ -456,64 +529,120 @@
 
 /* ===== KEYFRAME ANIMATIONS ===== */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes neon-pulse-pink {
-  0%, 100% { box-shadow: 0 0 5px hsl(var(--arcade-pink) / 0.5), 0 0 20px hsl(var(--arcade-pink) / 0.2); }
-  50% { box-shadow: 0 0 10px hsl(var(--arcade-pink) / 0.8), 0 0 40px hsl(var(--arcade-pink) / 0.4); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px hsl(var(--arcade-pink) / 0.5),
+      0 0 20px hsl(var(--arcade-pink) / 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 10px hsl(var(--arcade-pink) / 0.8),
+      0 0 40px hsl(var(--arcade-pink) / 0.4);
+  }
 }
 
 @keyframes neon-pulse-yellow {
-  0%, 100% { box-shadow: 0 0 5px hsl(var(--arcade-yellow) / 0.5), 0 0 20px hsl(var(--arcade-yellow) / 0.2); }
-  50% { box-shadow: 0 0 10px hsl(var(--arcade-yellow) / 0.8), 0 0 40px hsl(var(--arcade-yellow) / 0.4); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px hsl(var(--arcade-yellow) / 0.5),
+      0 0 20px hsl(var(--arcade-yellow) / 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 10px hsl(var(--arcade-yellow) / 0.8),
+      0 0 40px hsl(var(--arcade-yellow) / 0.4);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 @keyframes pixel-pop {
-  0% { 
+  0% {
     transform: scale(0.8) translateY(10px);
     opacity: 0;
   }
-  50% { 
+  50% {
     transform: scale(1.05);
   }
-  100% { 
+  100% {
     transform: scale(1) translateY(0);
     opacity: 1;
   }
 }
 
 @keyframes color-shift {
-  0% { color: hsl(var(--arcade-pink)); }
-  50% { color: hsl(var(--arcade-yellow)); }
-  100% { color: hsl(var(--arcade-pink)); }
+  0% {
+    color: hsl(var(--arcade-pink));
+  }
+  50% {
+    color: hsl(var(--arcade-yellow));
+  }
+  100% {
+    color: hsl(var(--arcade-pink));
+  }
 }
 
 /* ===== UTILITY ANIMATIONS ===== */
 .animate-shake {
-  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 .animate-pulse-pink {
