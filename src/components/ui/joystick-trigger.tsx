@@ -8,7 +8,7 @@ const JoystickTrigger = () => {
 
   return (
     <>
-      <div className="fixed bottom-12 right-12 z-[150] flex flex-col items-end gap-3 pointer-events-none">
+      <div className="fixed bottom-8 right-8 z-[150] flex flex-col items-end gap-3 pointer-events-none">
         <motion.button
           onClick={() => setGameOpen(true)}
           initial={{ opacity: 0, scale: 0.8 }}
