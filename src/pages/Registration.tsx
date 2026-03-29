@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { eventCards } from "@/components/EventsSection";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, Check, Home } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import logo from "@/assets/adsophos-logo.png";
 
 const memberSchema = z.object({
@@ -127,10 +127,19 @@ const Registration = () => {
   const navigate = useNavigate();
   const eventName = searchParams.get("event") || "";
   const selectedEvent =
-    eventCards.find((e) => e.title === eventName) || eventCards[0];
+    eventCards.find((e) => e.name === eventName) || eventCards[0];
 
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgTextY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const bgTextY2 = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -181,7 +190,7 @@ const Registration = () => {
 
   const onSubmit = (values: FormValues) => {
     toast.success("REGISTRATION COMPLETE!", {
-      description: `${values.teamName} registered for ${selectedEvent.title}.`,
+      description: `${values.teamName} registered for ${selectedEvent.name}.`,
       className: "border-2 border-green-500 rounded-none bg-black text-green-400 font-mono",
     });
     setTimeout(() => navigate("/"), 2500);
@@ -194,34 +203,68 @@ const Registration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-mono pt-0 relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-[#050505] text-white font-mono pt-0 relative overflow-hidden"
+    >
+      {/* ── Background large ghost text (Left) ─────────────────────────────────── */}
+      <motion.div
+        style={{ y: bgTextY }}
+        className="pointer-events-none absolute -left-10 md:left-14 top-[9%] flex flex-col gap-4 md:gap-14  items-start select-none z-0 opacity-[0.04]"
+        aria-hidden
+      >
+        {"PHOS".split("").map((char, i) => (
+          <span
+            key={`l-${i}`}
+            className="font-arcade text-[12vw] md:text-[8vw] leading-[0.7] text-white block"
+          >
+            {char}
+          </span>
+        ))}
+      </motion.div>
+
+      {/* ── Background large ghost text (Right) ─────────────────────────────────── */}
+      <motion.div
+        style={{ y: bgTextY2 }}
+        className="pointer-events-none absolute -right-10 md:right-14 top-[29%] flex flex-col gap-4 md:gap-14 items-end select-none z-0 opacity-[0.04]"
+        aria-hidden
+      >
+        {"ADSOP".split("").map((char, i) => (
+          <span
+            key={`r-${i}`}
+            className="font-arcade text-[12vw] md:text-[8vw] leading-[0.7] text-white block"
+          >
+            {char}
+          </span>
+        ))}
+      </motion.div>
       {/* Retro Dotted / Static Noise Matrix */}
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-[0] opacity-50"
         style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, #3f3f46 1px, transparent 0)`,
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       ></div>
-      
+
       {/* Subtle Scanlines overlay (No glow, pure CSS bars) */}
-      <div className="fixed inset-0 pointer-events-none z-[0] bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.5)_50%)] opacity-80"></div>
+      <div className="fixed inset-0 pointer-events-none z-[0] bg-[repeating-linear-gradient(to_bottom,transparent,transparent_2px,rgba(0,0,0,0.2)_2px,rgba(0,0,0,0.2)_4px)] opacity-50"></div>
 
       <nav className="relative z-20 border-b-2 border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between">
-          <Button 
-            variant="outline" 
-            className="border-zinc-700 bg-zinc-900 hover:bg-zinc-800 hover:text-white rounded-none text-xs h-10 px-4 flex items-center gap-2 font-mono font-bold tracking-widest text-zinc-400" 
+          <Button
+            variant="outline"
+            className="border-zinc-700 bg-zinc-900 hover:bg-zinc-800 hover:text-white rounded-none text-xs h-10 px-4 flex items-center gap-2 font-mono font-bold tracking-widest text-zinc-400"
             onClick={() => navigate("/")}
           >
-            <Home size={14} /> 
+            <Home size={14} />
             <span className="hidden sm:inline">RETURN</span>
           </Button>
 
           <img src={logo} alt="Adsophos" className="h-20 object-contain" />
         </div>
       </nav>
-      
+
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-10">
         <StepBar current={step} />
 
@@ -238,7 +281,6 @@ const Registration = () => {
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 className="space-y-6"
               >
-
                 {/* STEP 0 — Squad */}
                 {step === 0 && (
                   <ArcadeCard title="01 — Squad Setup">
@@ -250,7 +292,10 @@ const Registration = () => {
                           <FormItem className="flex flex-col gap-1 space-y-0">
                             <PixelLabel>Team Name</PixelLabel>
                             <FormControl>
-                              <PixelInput placeholder="Team Name..." {...field} />
+                              <PixelInput
+                                placeholder="Team Name..."
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage className="text-arcade-pink text-[10px] mt-1 font-mono" />
                           </FormItem>
@@ -262,15 +307,27 @@ const Registration = () => {
                         render={({ field }) => (
                           <FormItem className="flex flex-col gap-1 space-y-0">
                             <PixelLabel>Team Size</PixelLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
+                            <Select
+                              onValueChange={field.onChange}
+                              value={field.value}
+                            >
                               <FormControl>
                                 <SelectTrigger className="bg-black border-2 border-zinc-700 rounded-none focus:ring-0 focus:border-arcade-pink text-white h-12 font-mono text-sm">
                                   <SelectValue placeholder="Select" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent className="bg-zinc-950 border-2 border-zinc-700 rounded-none font-mono text-white">
-                                {[["1","Solo (1)"],["2","Duo (2)"],["3","Trio (3)"],["4","Squad (4)"]].map(([v, l]) => (
-                                  <SelectItem key={v} value={v} className="focus:bg-zinc-800 focus:text-white cursor-pointer rounded-none text-sm">
+                                {[
+                                  ["1", "Solo (1)"],
+                                  ["2", "Duo (2)"],
+                                  ["3", "Trio (3)"],
+                                  ["4", "Squad (4)"],
+                                ].map(([v, l]) => (
+                                  <SelectItem
+                                    key={v}
+                                    value={v}
+                                    className="focus:bg-zinc-800 focus:text-white cursor-pointer rounded-none text-sm"
+                                  >
                                     {l}
                                   </SelectItem>
                                 ))}
@@ -287,20 +344,22 @@ const Registration = () => {
                       <div className="shrink-0 border-2 border-arcade-pink shadow-[4px_4px_0px_#00FFFF]">
                         <img
                           src={selectedEvent.image}
-                          alt={selectedEvent.title}
+                          alt={selectedEvent.name}
                           className="w-40 h-40 sm:w-48 sm:h-48 object-cover block"
                         />
                       </div>
                       <div className="flex flex-col justify-center text-center sm:text-left flex-1 py-2">
                         <p className="font-arcade text-[10px] sm:text-xs tracking-widest mb-3 text-zinc-400">
-                          <span className="text-arcade-cyan mr-2">&gt;&gt;</span>
+                          <span className="text-arcade-cyan mr-2">
+                            &gt;&gt;
+                          </span>
                           REGISTERING FOR
                         </p>
-                        <p 
-                          className="font-arcade text-3xl sm:text-5xl text-white uppercase leading-tight"
+                        <p
+                          className="font-arcade text-2xl sm:text-3xl text-white uppercase leading-tight"
                           style={{ textShadow: "4px 4px 0px #FF2D78" }}
                         >
-                          {selectedEvent.title}
+                          {selectedEvent.name}
                         </p>
                       </div>
                     </div>
@@ -313,15 +372,32 @@ const Registration = () => {
                     {[...Array(teamSize)].map((_, i) => (
                       <ArcadeCard
                         key={i}
-                        title={i === 0 ? `P1 — Team Lead` : `P${i + 1} — Member`}
-
+                        title={
+                          i === 0 ? `P1 — Team Lead` : `P${i + 1} — Member`
+                        }
                       >
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
                           {[
-                            { name: `members.${i}.name`, label: "Full Name", placeholder: "Full Name" },
-                            { name: `members.${i}.rollNumber`, label: "Roll Number", placeholder: "21XX1A05XX" },
-                            { name: `members.${i}.phone`, label: "Phone", placeholder: "9876543210" },
-                            { name: `members.${i}.email`, label: "Email", placeholder: "player@mail.com" },
+                            {
+                              name: `members.${i}.name`,
+                              label: "Full Name",
+                              placeholder: "Full Name",
+                            },
+                            {
+                              name: `members.${i}.rollNumber`,
+                              label: "Roll Number",
+                              placeholder: "21XX1A05XX",
+                            },
+                            {
+                              name: `members.${i}.phone`,
+                              label: "Phone",
+                              placeholder: "9876543210",
+                            },
+                            {
+                              name: `members.${i}.email`,
+                              label: "Email",
+                              placeholder: "player@mail.com",
+                            },
                           ].map(({ name, label, placeholder }) => (
                             <FormField
                               key={name}
@@ -331,7 +407,10 @@ const Registration = () => {
                                 <FormItem className="flex flex-col gap-1 space-y-0">
                                   <PixelLabel>{label}</PixelLabel>
                                   <FormControl>
-                                    <PixelInput placeholder={placeholder} {...field} />
+                                    <PixelInput
+                                      placeholder={placeholder}
+                                      {...field}
+                                    />
                                   </FormControl>
                                   <FormMessage className="text-arcade-pink text-[10px] mt-1 font-mono" />
                                 </FormItem>
@@ -345,7 +424,10 @@ const Registration = () => {
                               <FormItem className="flex flex-col gap-1 space-y-0 sm:col-span-2">
                                 <PixelLabel>College / University</PixelLabel>
                                 <FormControl>
-                                  <PixelInput placeholder="College Name" {...field} />
+                                  <PixelInput
+                                    placeholder="College Name"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage className="text-arcade-pink text-[10px] mt-1 font-mono" />
                               </FormItem>
@@ -378,7 +460,9 @@ const Registration = () => {
                       {/* Right: Instructions & Upload */}
                       <div className="flex-1 flex flex-col justify-between w-full h-full space-y-6">
                         <div className="border-l-2 border-zinc-800 pl-6 space-y-2 flex-1 pt-2">
-                          <p className="font-mono text-xs text-zinc-500 tracking-widest font-bold">INSTRUCTIONS</p>
+                          <p className="font-mono text-xs text-zinc-500 tracking-widest font-bold">
+                            INSTRUCTIONS
+                          </p>
                           <ol className="space-y-3 mt-4">
                             {[
                               "Open any UPI app (GPay, PhonePe, Paytm)",
@@ -386,8 +470,13 @@ const Registration = () => {
                               "Complete the required payment",
                               "Take a screenshot of the CONFIRMATION screen",
                             ].map((s, i) => (
-                              <li key={i} className="flex gap-3 text-sm text-zinc-300 font-medium items-start">
-                                <span className="text-arcade-pink font-bold mt-0.5">&gt;</span>
+                              <li
+                                key={i}
+                                className="flex gap-3 text-sm text-zinc-300 font-medium items-start"
+                              >
+                                <span className="text-arcade-pink font-bold mt-0.5">
+                                  &gt;
+                                </span>
                                 {s}
                               </li>
                             ))}
@@ -401,7 +490,9 @@ const Registration = () => {
                             <FormItem className="flex flex-col gap-2 space-y-0 bg-[#050505] border-2 border-zinc-800 p-4">
                               <div className="flex items-center gap-2 mb-1">
                                 <span className="w-2 h-2 bg-arcade-cyan"></span>
-                                <PixelLabel>UPLOAD CONFIRMATION SCREENSHOT</PixelLabel>
+                                <PixelLabel>
+                                  UPLOAD CONFIRMATION SCREENSHOT
+                                </PixelLabel>
                               </div>
                               <FormControl>
                                 <div className="relative group">
@@ -409,7 +500,9 @@ const Registration = () => {
                                   <Input
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) => field.onChange(e.target.files)}
+                                    onChange={(e) =>
+                                      field.onChange(e.target.files)
+                                    }
                                     name={field.name}
                                     onBlur={field.onBlur}
                                     ref={field.ref}
@@ -433,13 +526,23 @@ const Registration = () => {
                       {/* Summary rows */}
                       <div className="border-2 border-zinc-800 divide-y-2 divide-zinc-800">
                         {[
-                          { label: "Event", value: selectedEvent.title },
+                          { label: "Event", value: selectedEvent.name },
                           { label: "Team", value: allValues.teamName },
-                          { label: "Size", value: `${teamSize} player${teamSize > 1 ? "s" : ""}` },
+                          {
+                            label: "Size",
+                            value: `${teamSize} player${teamSize > 1 ? "s" : ""}`,
+                          },
                         ].map(({ label, value }) => (
-                          <div key={label} className="flex justify-between items-center px-4 py-2.5">
-                            <span className="font-mono text-xs text-zinc-500 tracking-widest uppercase">{label}</span>
-                            <span className="font-mono text-xs text-white uppercase">{value}</span>
+                          <div
+                            key={label}
+                            className="flex justify-between items-center px-4 py-2.5"
+                          >
+                            <span className="font-mono text-xs text-zinc-500 tracking-widest uppercase">
+                              {label}
+                            </span>
+                            <span className="font-mono text-xs text-white uppercase">
+                              {value}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -447,30 +550,42 @@ const Registration = () => {
                       {/* Member list */}
                       <div className="border-2 border-zinc-800 divide-y-2 divide-zinc-800">
                         {allValues.members?.map((m, i) => (
-                          <div key={i} className="px-4 py-2.5 flex items-center justify-between gap-2 sm:gap-4 overflow-hidden">
+                          <div
+                            key={i}
+                            className="px-4 py-2.5 flex items-center justify-between gap-2 sm:gap-4 overflow-hidden"
+                          >
                             <span className="font-mono text-xs text-arcade-pink tracking-widest shrink-0">
                               P{i + 1}
                             </span>
                             <div className="flex-1 min-w-0">
-                              <p className="font-mono text-xs sm:text-[9px] text-white truncate">{m.name || "—"}</p>
-                              <p className="text-[9px] sm:text-[10px] text-zinc-500 truncate">{m.college || "—"}</p>
+                              <p className="font-mono text-xs sm:text-[9px] text-white truncate">
+                                {m.name || "—"}
+                              </p>
+                              <p className="text-[9px] sm:text-[10px] text-zinc-500 truncate">
+                                {m.college || "—"}
+                              </p>
                             </div>
-                            <span className="font-mono text-[10px] sm:text-[8px] text-zinc-600 shrink-0 max-w-[80px] sm:max-w-none text-right truncate overflow-hidden">{m.rollNumber || "—"}</span>
+                            <span className="font-mono text-[10px] sm:text-[8px] text-zinc-600 shrink-0 max-w-[80px] sm:max-w-none text-right truncate overflow-hidden">
+                              {m.rollNumber || "—"}
+                            </span>
                           </div>
                         ))}
                       </div>
 
                       {/* Payment status */}
                       <div className="flex items-center gap-3 border-2 border-zinc-800 px-4 py-3">
-                        <div className={`w-2 h-2 shrink-0 ${allValues.paymentScreenshot?.length ? "bg-green-400" : "bg-zinc-700"}`} />
+                        <div
+                          className={`w-2 h-2 shrink-0 ${allValues.paymentScreenshot?.length ? "bg-green-400" : "bg-zinc-700"}`}
+                        />
                         <span className="font-mono text-xs tracking-widest text-zinc-400 uppercase">
-                          {allValues.paymentScreenshot?.length ? "Payment screenshot attached" : "No screenshot attached"}
+                          {allValues.paymentScreenshot?.length
+                            ? "Payment screenshot attached"
+                            : "No screenshot attached"}
                         </span>
                       </div>
                     </div>
                   </ArcadeCard>
                 )}
-
               </motion.div>
             </AnimatePresence>
 
@@ -491,7 +606,7 @@ const Registration = () => {
                   type="button"
                   onClick={goNext}
                   variant="default"
-                  className="w-full sm:w-auto flex-1 sm:flex-none"
+                  className="w-full sm:w-auto flex-1 sm:flex-none text-black"
                 >
                   NEXT <ArrowRight size={13} className="ml-2 hidden sm:block" />
                 </Button>
@@ -505,7 +620,6 @@ const Registration = () => {
                 </Button>
               )}
             </div>
-
           </form>
         </Form>
       </div>
