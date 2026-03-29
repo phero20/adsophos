@@ -103,7 +103,7 @@ const HeroSection = ({ loaded = true }: { loaded?: boolean }) => {
           animate={loaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
           transition={{ delay: 1.2, type: "spring", bounce: 0.6 }}
         >
-          <Button asChild variant="default" size="default">
+          <Button asChild variant="default" size="default" className="text-black">
             <a href="#events">EXPLORE EVENTS</a>
           </Button>
 
