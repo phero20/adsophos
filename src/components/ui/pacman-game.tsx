@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Timer, X, Gamepad2, RotateCcw, Clock, ArrowLeft } from "lucide-react";
+import { Timer, X, Gamepad2, RotateCcw, Clock, ArrowLeft, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PacmanGameProps {
   onClose: () => void;
@@ -269,9 +269,21 @@ const PacmanGame: React.FC<PacmanGameProps> = ({ onClose }) => {
           <X size={24} />
         </button>
 
-        <div className="flex items-center gap-3 mb-6 border-b-2 border-zinc-800 pb-4 w-full justify-center">
-          <Gamepad2 className="text-arcade-yellow mb-1" size={30} />
-          <h2 className="font-arcade text-xl text-white tracking-widest uppercase">PAC MAN</h2>
+        <div className="flex flex-col items-center gap-2 mb-6 border-b-2 border-zinc-800 pb-4 w-full px-4">
+          <div className="flex items-center gap-3 justify-center">
+            <Gamepad2 className="text-arcade-yellow mb-1" size={30} />
+            <h2 className="font-arcade text-xl text-white tracking-widest uppercase">PAC MAN</h2>
+          </div>
+          <div className="flex items-center gap-3 bg-zinc-900/50 px-4 py-2 border border-zinc-800/50">
+            <div className="flex items-center gap-1.5">
+              {[ChevronLeft, ChevronUp, ChevronDown, ChevronRight].map((Icon, i) => (
+                <div key={i} className="flex items-center justify-center w-6 h-6 border-2 border-zinc-800 bg-zinc-950 shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                  <Icon size={14} className="text-arcade-cyan " />
+                </div>
+              ))}
+            </div>
+            <span className="font-arcade text-[8px] text-arcade-pink tracking-[0.2em]">USE ARROWS TO PLAY</span>
+          </div>
         </div>
 
         <div className="w-full h-[380px] md:h-[420px] bg-black border-4 border-zinc-800 relative overflow-hidden flex items-center justify-center">
