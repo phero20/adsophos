@@ -160,7 +160,7 @@ const EventCard = ({
         <DialogTrigger asChild>
           <Button
             variant="default"
-            className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-white transition-all duration-300 rounded-none font-arcade text-[10px]"
+            className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none font-arcade text-[10px]"
           >
             View & Register <ArrowRight className="ml-2" size={14} />
           </Button>
@@ -193,7 +193,7 @@ const EventCard = ({
         <Button
           asChild
           variant="default"
-          className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-white transition-all duration-300 rounded-none"
+          className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none"
         >
           <a href={`/register?event=${encodeURIComponent(evt.name)}`}>
             Register <ArrowRight className="ml-2" size={16} />
