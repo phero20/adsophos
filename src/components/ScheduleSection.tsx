@@ -324,7 +324,7 @@ const ScheduleSection = () => {
                           }}
                         >
                           {/* Inside Time */}
-                          <div
+                          {/* <div
                             className={`flex items-center gap-2 mb-3 font-arcade text-[12px] justify-start ${
                               i % 2 === 0 ? "md:justify-end" : "md:justify-start"
                             }`}
@@ -332,7 +332,7 @@ const ScheduleSection = () => {
                           >
                             <Clock size={20} className="opacity-70 mb-1" />
                             <span>{ev.time}</span>
-                          </div>
+                          </div> */}
 
                           {/* Side Accent Icon */}
                           <div
