@@ -148,6 +148,17 @@
     scrollbar-gutter: stable;
   }
 
+  ::selection {
+    background-color: hsl(var(--arcade-pink) / 0.8);
+    color: white;
+    text-shadow: none;
+  }
+  ::-moz-selection {
+    background-color: hsl(var(--arcade-pink) / 0.8);
+    color: white;
+    text-shadow: none;
+  }
+
   * {
     @apply border-border;
   }
