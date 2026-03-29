@@ -20,6 +20,31 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
 
+  // Track section in view for highlighting nav link
+  useEffect(() => {
+    const handleSectionScroll = () => {
+      let found = false;
+      for (let i = navLinks.length - 1; i >= 0; i--) {
+        const link = navLinks[i];
+        const id = link.href.replace('#', '');
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 80) { // 80px offset for navbar height
+            setActiveLink(link.label);
+            found = true;
+            break;
+          }
+        }
+      }
+      if (!found) setActiveLink(null);
+    };
+    window.addEventListener('scroll', handleSectionScroll, { passive: true });
+    // Run once on mount
+    handleSectionScroll();
+    return () => window.removeEventListener('scroll', handleSectionScroll);
+  }, []);
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
@@ -93,7 +118,7 @@ const Navbar = () => {
         </motion.a>
 
         {/* DESKTOP NAVIGATION */}
-        <div className="hidden lg:flex items-center gap-12">
+        <div className="hidden lg:flex items-center gap-12 cursor-pointer">
           {navLinks.map((link, idx) => (
             <motion.div
               key={link.href}
@@ -107,10 +132,10 @@ const Navbar = () => {
               <a
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-xs font-body font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                className={`text-[10px] font-arcade uppercase tracking-widest transition-all duration-300 ${
                   activeLink === link.label
                     ? "text-arcade-yellow"
-                    : "text-foreground/70 hover:text-foreground"
+                    : "text-foreground/70 hover:text-arcade-cyan"
                 }`}
               >
                 {link.label}
@@ -118,7 +143,7 @@ const Navbar = () => {
 
               {/* BOTTOM BORDER INDICATOR */}
               <motion.div
-                className="absolute -bottom-1 left-0 h-0.5 bg-arcade-yellow"
+                className="absolute -bottom-1 left-0 h-[3px] bg-arcade-cyan"
                 initial={false}
                 animate={activeLink === link.label ? { width: "100%" } : { width: "0%" }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
@@ -129,8 +154,8 @@ const Navbar = () => {
 
         {/* RIGHT SECTION */}
         <div className="flex items-center gap-4">
-          {/* REGISTER BUTTON - Clean & Professional */}
-          <Button asChild variant="default" className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2">
+          {/* REGISTER BUTTON - Arcade Retro Style */}
+          <Button asChild variant="default" className="hidden md:flex font-arcade text-[10px] tracking-[0.2em] px-6 py-3 bg-transparent border-2 border-arcade-pink text-arcade-yellow hover:bg-arcade-yellow hover:text-white transition-all duration-300 rounded-none">
             <a href="#events" onClick={(e) => handleNavClick(e, '#events')}>REGISTER</a>
           </Button>
 
@@ -166,7 +191,7 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-6 py-4 border-b border-arcade-pink/15 text-xs font-body font-bold uppercase tracking-[0.15em] text-foreground/80 hover:text-arcade-yellow hover:bg-arcade-pink/5 transition-colors duration-300 last:border-b-0"
+                  className="px-6 py-5 border-b border-arcade-pink/20 text-[10px] font-arcade uppercase tracking-[0.2em] text-foreground/80 hover:text-arcade-cyan hover:bg-arcade-cyan/10 transition-colors duration-300 last:border-b-0"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: idx * 0.08 }}
@@ -176,7 +201,7 @@ const Navbar = () => {
               ))}
 
               {/* MOBILE CTA */}
-              <Button asChild variant="default" className="mx-6 my-4 px-6 py-3 font-body font-bold text-xs tracking-[0.1em] text-center">
+              <Button asChild variant="default" className="mx-6 my-6 px-6 py-3 font-arcade text-[10px] tracking-[0.2em] text-center bg-transparent border-2 border-arcade-pink text-arcade-pink hover:bg-arcade-pink hover:text-white transition-all rounded-none">
                 <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>REGISTER</a>
               </Button>
             </div>
