@@ -12,6 +12,12 @@ import {
   DialogFooter,
 } from "./ui/dialog";
 
+// Event images
+import paperxImg from "../assets/events/paperx.jpeg";
+import bytopiaImg from "../assets/events/bytopia.jpeg";
+import auctionManiaImg from "../assets/events/auction-mania.jpeg";
+import conquestImg from "../assets/events/conquest.jpeg";
+
 // Reusable: split text into chars for stagger animation
 const SplitText = ({
   text,
@@ -55,8 +61,7 @@ export const eventCards = [
   {
     name: "PaperX",
     tagline: "Paper Presentation Forum",
-    image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+    image: paperxImg,
     description: `PaperX is an event for participants to present their research papers and demonstrate their understanding of a chosen topic. Participants are expected to clearly explain the problem statement, discuss existing work, identify research gaps, and present their proposed solution.\nParticipants will present using a PPT and take part in a Q&A session with judges, testing 
 both their knowledge and presentation skills.The event focuses on clear understanding, 
 originality, and the ability to relate ideas to real-world applications. `,
@@ -64,8 +69,7 @@ originality, and the ability to relate ideas to real-world applications. `,
   {
     name: "Canvas Clash",
     tagline: "Poster Presentation",
-    image:
-      "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=800",
+    image: bytopiaImg,
     description: `Showcase your creativity, ideas, and artistic skills in Canvas Clash. Participants are required 
 to create a handmade poster based on a theme given on the spot, within the allotted time, 
 using A3 paper. \nOnce completed, participants will present their concept to the judges, explaining the idea 
@@ -75,22 +79,19 @@ express ideas visually.`,
   {
     name: "Auction Mania",
     tagline: "Bid Smart. Build Strong. Win Big.",
-    image:
-      "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=800",
+    image: auctionManiaImg,
     description: `Auction Mania brings the electrifying thrill of the IPL Auction to life! Step into the shoes of team owners, where every bid, every decision, and every player you choose shapes your path to victory.\nStart with strategy, as you plan your budget and team composition wisely. Move into the live auction, where quick thinking, smart bidding, and teamwork will give you the advantage. End with team evaluation, where the strongest and most balanced team will rise above the rest. Only the smartest team will build the ultimate squad and dominate the auction. Build your team. Win the auction. Become the champions of Auction Mania.`,
   },
   {
     name: "Byteopia",
     tagline: "A Fusion of Mind Games, Fueled by Speed",
-    image:
-      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800",
+    image: bytopiaImg,
     description: `Byteopia offers dynamic games with a range of fast-paced, tech-driven challenges that test reflexes, focus, and thinking skills. Participants will take part in interactive activities that require speed, accuracy, and smart decision-making. Each challenge is designed to keep players engaged, encouraging quick reactions and sharp thinking in a high-energy, competitive environment where mastering diverse tasks becomes part of the thrill.`,
   },
   {
     name: "Conquest",
     tagline: "Outsmart. Outplay. Outlast.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
+    image: conquestImg,
     description: `Conquest is a multi-round challenge that pushes your speed, strategy, and teamwork to the limit. Begin with Velocity, where quick thinking and communication give you the edge. Move into Shadows & Lies, a round of puzzles, logic, and hidden truths where not everything can be trusted. End with Treasure Hunt: The Final Conquest, an intense race to decode clues and claim victory. Every round brings you closer to the top, if you can keep up. Only one team will conquer it all.`,
   },
   {
@@ -122,7 +123,7 @@ const EventCard = ({
 }) => (
   <Dialog>
     <motion.div
-      className="relative bg-zinc-950 border-4 border-arcade-pink flex flex-col group cursor-pointer overflow-hidden h-full"
+      className="relative bg-zinc-950 border-4 border-arcade-pink flex flex-col md:flex-row group cursor-pointer overflow-hidden h-full min-h-[220px]"
       style={{ boxShadow: SHADOW }}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -137,32 +138,40 @@ const EventCard = ({
         boxShadow: SHADOW_HOVER,
       }}
     >
-      {/* Image */}
-      <div className="w-full aspect-[16/10] overflow-hidden border-b-4 border-arcade-pink">
+      {/* Image: Left on Desktop, Top on Mobile */}
+      <div className="w-full md:w-[38%] overflow-hidden border-b-4 md:border-b-0 md:border-r-4 border-arcade-pink shrink-0 relative aspect-square md:aspect-auto">
         <img
           src={evt.image}
           alt={evt.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
+        {/* Retro scanline overlay on image only */}
+        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,4px_100%] opacity-40" />
       </div>
 
-      {/* Content */}
-      <div className="p-4 px-3 flex flex-col flex-grow items-center text-center">
+      {/* Content: Right on Desktop, Bottom on Mobile */}
+      <div className="p-5 flex flex-col flex-grow items-start text-left bg-gradient-to-br from-transparent to-arcade-pink/5">
         <h3
-          className="font-arcade text-sm md:text-base leading-tight mb-2 text-arcade-yellow"
+          className="font-arcade text-base md:text-lg leading-tight mb-2 text-arcade-yellow"
           style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
         >
           {evt.name}
         </h3>
-        <div className="font-arcade text-[8px] md:text-[10px] mb-4 min-h-[2em] text-arcade-cyan">
+        <div className="font-arcade text-[8px] md:text-[9px] mb-3 text-arcade-cyan uppercase tracking-wider">
           {evt.tagline}
         </div>
+        
+        {/* Description Snippet: Desktop only or small snippet */}
+        <p className="text-[10px] md:text-xs font-body text-zinc-400 mb-6 line-clamp-3 leading-relaxed">
+          {evt.description}
+        </p>
+
         <DialogTrigger asChild>
           <Button
             variant="default"
-            className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none font-arcade text-[10px]"
+            className="w-full md:w-auto mt-auto px-6 flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none font-arcade text-[10px]"
           >
-            View & Register <ArrowRight className="ml-2" size={14} />
+            View More <ArrowRight className="ml-2" size={14} />
           </Button>
         </DialogTrigger>
       </div>
@@ -239,11 +248,11 @@ const EventsSection = () => (
       </p>
 
       {/* All 7 events — uniform card sizes, 4 per row on desktop, bottom 3 centred */}
-      <div className="flex flex-wrap justify-center gap-6 gap-y-12 px-2">
+      <div className="flex flex-wrap justify-center gap-8 gap-y-12 px-2">
         {eventCards.map((evt, i) => (
           <div
             key={evt.name}
-            className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
+            className="w-full lg:w-[calc(50%-16px)]"
           >
             <EventCard evt={evt} index={i} />
           </div>
