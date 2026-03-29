@@ -20,6 +20,24 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const elem = document.getElementById(targetId);
+      
+      if (mobileOpen) {
+        setMobileOpen(false);
+        // Wait for the menu closing animation
+        setTimeout(() => {
+          elem?.scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      } else {
+        elem?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   useEffect(() => {
     const onScroll = () => {
       const currentScrollY = window.scrollY;
@@ -88,6 +106,7 @@ const Navbar = () => {
             >
               <a
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className={`text-xs font-body font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
                   activeLink === link.label
                     ? "text-arcade-yellow"
@@ -112,7 +131,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {/* REGISTER BUTTON - Clean & Professional */}
           <Button asChild variant="default" className="hidden md:flex font-body font-bold text-xs tracking-[0.1em] px-6 py-2">
-            <a href="#events">REGISTER</a>
+            <a href="#events" onClick={(e) => handleNavClick(e, '#events')}>REGISTER</a>
           </Button>
 
           {/* MOBILE TOGGLE */}
@@ -146,7 +165,7 @@ const Navbar = () => {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="px-6 py-4 border-b border-arcade-pink/15 text-xs font-body font-bold uppercase tracking-[0.15em] text-foreground/80 hover:text-arcade-yellow hover:bg-arcade-pink/5 transition-colors duration-300 last:border-b-0"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -158,7 +177,7 @@ const Navbar = () => {
 
               {/* MOBILE CTA */}
               <Button asChild variant="default" className="mx-6 my-4 px-6 py-3 font-body font-bold text-xs tracking-[0.1em] text-center">
-                <a href="#contact" onClick={() => setMobileOpen(false)}>REGISTER</a>
+                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>REGISTER</a>
               </Button>
             </div>
           </motion.div>
