@@ -13,10 +13,10 @@ const AnimatedShaderBackground = () => {
 
     // Visible but subtle mountains at the far left and far right edges
     const mountains = [
-      { cx: -0.42, w: 0.15, h: 0.03 },
-      { cx: -0.48, w: 0.2, h: 0.045 },
-      { cx: 0.42, w: 0.12, h: 0.025 },
-      { cx: 0.48, w: 0.22, h: 0.04 },
+      { cx: -0.32, w: 0.18, h: 0.10 },
+      { cx: -0.48, w: 0.25, h: 0.18 },
+      { cx: 0.32, w: 0.20, h: 0.10 },
+      { cx: 0.48, w: 0.28, h: 0.16 },
     ];
 
     let animId: number;
