@@ -83,7 +83,7 @@ const RegistrationSection = () => {
             ))}
           </div>
           <button className="w-full font-arcade text-[10px] py-4 bg-arcade-pink text-primary-foreground pixel-btn">
-            🎮 REGISTER NOW
+             REGISTER NOW
           </button>
         </motion.div>
       </div>
