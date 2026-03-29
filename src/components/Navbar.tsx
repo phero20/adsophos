@@ -155,7 +155,7 @@ const Navbar = () => {
         {/* RIGHT SECTION */}
         <div className="flex items-center gap-4">
           {/* REGISTER BUTTON - Arcade Retro Style */}
-          <Button asChild variant="default" className="hidden md:flex font-arcade text-[10px] tracking-[0.2em] px-6 py-3 bg-transparent border-2 border-arcade-pink text-arcade-yellow hover:bg-arcade-yellow hover:text-white transition-all duration-300 rounded-none">
+          <Button asChild variant="default" className="hidden md:flex font-arcade text-[10px] tracking-[0.2em] px-6 py-3 bg-transparent border-2 border-arcade-pink text-arcade-yellow hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none">
             <a href="#events" onClick={(e) => handleNavClick(e, '#events')}>REGISTER</a>
           </Button>
 
