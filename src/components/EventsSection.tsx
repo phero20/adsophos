@@ -14,6 +14,7 @@ import {
 
 import paperxImg from "../assets/events/paperx.jpeg";
 import byteopiaImg from "../assets/events/byteopia.png";
+import canvasClashImg from "../assets/events/canvas clash.png";
 import auctionManiaImg from "../assets/events/auction-mania.jpeg";
 import conquestImg from "../assets/events/conquest.jpeg";
 import missionImpossibleImg from "../assets/events/mission impossible.png";
@@ -94,7 +95,7 @@ originality, and the ability to relate ideas to real-world applications. `,
   {
     name: "Canvas Clash",
     tagline: "Poster Presentation",
-    image: byteopiaImg,
+    image: canvasClashImg,
     description: `Showcase your creativity, ideas, and artistic skills in Canvas Clash. Participants are required 
 to create a handmade poster based on a theme given on the spot, within the allotted time, 
 using A3 paper. \nOnce completed, participants will present their concept to the judges, explaining the idea 
