@@ -16,10 +16,10 @@ const Footer = () => (
 
         {/* Links */}
         <div className="grid grid-cols-2 gap-y-4 gap-x-10 text-center md:text-left mx-auto">
-          {["About", "Events", "Contact"].map((link) => (
+          {["Home", "About", "Events", "FAQ", "Contact"].map((link) => (
             <a
               key={link}
-              href={`#${link.toLowerCase()}`}
+              href={link === "Home" ? "#home" : `#${link.toLowerCase()}`}
               className="font-body font-bold text-xs tracking-[0.15em] text-zinc-400 hover:text-arcade-yellow transition-all hover:-translate-y-1 uppercase"
             >
               {link}

@@ -30,6 +30,7 @@ export type EventCardData = {
   image: string;
   description: string;
   category: EventCategory;
+  registrationUrl?: string;
   teamSizeOptions?: Array<{ value: string; label: string }>;
 };
 
@@ -79,11 +80,7 @@ export const eventCards: EventCardData[] = [
     description:
       "Project Expo is a platform for participants to present innovative models, prototypes, and practical ideas that solve real-world problems. It celebrates creativity, technical skill, and the ability to explain your concept clearly while making an impact through innovation.",
     category: "professional",
-    teamSizeOptions: [
-      { value: "2", label: "Duo (2)" },
-      { value: "3", label: "Trio (3)" },
-      { value: "4", label: "Squad (4)" },
-    ],
+    registrationUrl: "https://forms.gle/fRSVdMciCATkiTw88",
   },
   {
     name: "PaperX",
@@ -209,7 +206,11 @@ const EventCard = ({
 }: {
   evt: EventCardData;
   index: number;
-}) => (
+}) => {
+  const registrationHref =
+    evt.registrationUrl ?? `/register?event=${encodeURIComponent(evt.name)}`;
+
+  return (
   <Dialog>
     <motion.div
       className="relative bg-zinc-950 border-4 border-arcade-pink flex flex-col md:flex-row group cursor-pointer overflow-hidden h-full min-h-[220px]"
@@ -263,39 +264,52 @@ const EventCard = ({
     </motion.div>
 
     <DialogContent
-      className="fixed left-1/2 top-1/2 max-w-lg w-[calc(100vw-1rem)] box-border translate-x-[-50%] translate-y-[-50%] p-4 sm:p-6 overflow-x-auto overflow-y-auto max-h-[100dvh]"
+      className="fixed left-1/2 top-1/2 w-[calc(100vw-1rem)] max-w-5xl box-border translate-x-[-50%] translate-y-[-50%] p-4 sm:p-6 overflow-x-auto overflow-y-auto max-h-[100dvh]"
       style={{ boxShadow: SHADOW }}
     >
-      <DialogHeader>
-        <DialogTitle
-          className="font-arcade text-arcade-yellow text-xl mb-2"
-          style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
-        >
-          {evt.name}
-        </DialogTitle>
-        <div className="text-arcade-cyan font-arcade text-xs mb-2">
-          {evt.tagline}
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] items-stretch">
+        <div className="flex h-full flex-col">
+          <DialogHeader>
+            <DialogTitle
+              className="font-arcade text-arcade-yellow text-xl mb-2 text-left"
+              style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
+            >
+              {evt.name}
+            </DialogTitle>
+            <div className="text-arcade-cyan font-arcade text-xs mb-2 text-left">
+              {evt.tagline}
+            </div>
+          </DialogHeader>
+          <DialogDescription asChild>
+            <div className="whitespace-pre-line text-foreground font-body text-sm text-left leading-relaxed flex-1">
+              {evt.description}
+            </div>
+          </DialogDescription>
+          <DialogFooter className="mt-auto pt-6">
+            <Button
+              asChild
+              variant="default"
+              className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none"
+            >
+              <a href={registrationHref}>
+                Register <ArrowRight className="ml-2" size={16} />
+              </a>
+            </Button>
+          </DialogFooter>
         </div>
-      </DialogHeader>
-      <DialogDescription asChild>
-        <div className="whitespace-pre-line text-foreground font-body text-sm mb-4 text-left">
-          {evt.description}
+
+        <div className="border-2 border-arcade-pink bg-zinc-950 p-2 shadow-[3px_3px_0px_hsl(var(--arcade-cyan))] flex items-center justify-center">
+          <img
+            src={evt.image}
+            alt={`${evt.name} poster`}
+            className="w-full h-auto max-h-[70vh] object-contain bg-black"
+          />
         </div>
-      </DialogDescription>
-      <DialogFooter>
-        <Button
-          asChild
-          variant="default"
-          className="w-full mt-auto flex items-center justify-center text-arcade-yellow bg-transparent border-2 border-arcade-pink hover:bg-arcade-yellow hover:text-black transition-all duration-300 rounded-none"
-        >
-          <a href={`/register?event=${encodeURIComponent(evt.name)}`}>
-            Register <ArrowRight className="ml-2" size={16} />
-          </a>
-        </Button>
-      </DialogFooter>
+      </div>
     </DialogContent>
   </Dialog>
-);
+  );
+};
 
 const FunSticker = () => (
   <motion.a

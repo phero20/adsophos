@@ -165,6 +165,12 @@ const Registration = () => {
   const allValues = form.watch();
 
   useEffect(() => {
+    if (selectedEvent.registrationUrl) {
+      window.location.assign(selectedEvent.registrationUrl);
+    }
+  }, [selectedEvent]);
+
+  useEffect(() => {
     const forcedTeamSize = teamSizeOptions[0]?.value;
     if (forcedTeamSize && !teamSizeOptions.some((option) => option.value === form.getValues("teamSize"))) {
       form.setValue("teamSize", forcedTeamSize, { shouldValidate: true });
@@ -217,6 +223,16 @@ const Registration = () => {
     center: { x: 0, opacity: 1 },
     exit: (d: number) => ({ x: d > 0 ? -60 : 60, opacity: 0 }),
   };
+
+  if (selectedEvent.registrationUrl) {
+    return (
+      <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center px-6">
+        <p className="font-arcade text-sm text-arcade-yellow text-center">
+          Redirecting to registration form...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div

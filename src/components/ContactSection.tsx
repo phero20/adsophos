@@ -210,23 +210,26 @@ const ContactSection = () => {
                 }}>
                 <Phone className="w-5 h-5 text-arcade-yellow" />
               </div>
-              <span className="font-body font-bold text-white text-sm md:text-base tracking-widest transition-colors group-hover:text-arcade-yellow">Touseeef: 9989598636</span>
+              <span className="font-body font-bold text-white text-sm md:text-base tracking-widest transition-colors group-hover:text-arcade-yellow">Touseef: 9989598636</span>
             </div>
 
-            <div className="flex gap-4 md:gap-6 mt-4">
-              <a
-                href="https://www.instagram.com/adsophos_cse?igsh=Ymt6cnF2eDBoeGho"
-                target="_blank"
-                rel="noreferrer"
-                className="w-12 h-12 bg-zinc-950 border-2 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-110 hover:-translate-y-1"
-                style={{
-                  borderColor: `hsl(var(--arcade-pink))`,
-                  boxShadow: `2px 2px 0px 0px hsl(var(--arcade-cyan))`,
-                }}
-              >
-                <Instagram size={20} />
-              </a>
-            </div>
+          <div className="flex gap-4 md:gap-6 mt-4">
+            <a
+              href="https://www.instagram.com/adsophos_cse?igsh=Ymt6cnF2eDBoeGho"
+              target="_blank"
+              rel="noreferrer"
+              className="bg-zinc-950 border-2 flex items-center gap-3 px-4 py-3 text-zinc-400 hover:text-white transition-all hover:scale-105 hover:-translate-y-1"
+              style={{
+                borderColor: `hsl(var(--arcade-pink))`,
+                boxShadow: `2px 2px 0px 0px hsl(var(--arcade-cyan))`,
+              }}
+            >
+              <Instagram size={20} />
+              <span className="font-body font-bold text-sm tracking-wide text-white">
+                @adsophos_cse
+              </span>
+            </a>
+          </div>
           </motion.div>
         </div>
       </div>
