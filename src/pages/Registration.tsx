@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, Check, Home } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import logo from "@/assets/adsophos-logo.png";
+import paymentImg from "@/assets/events/payment.png";
 import { supabase } from "@/supabaseClient";
 
 const memberSchema = z.object({
@@ -779,7 +780,7 @@ const Registration = () => {
                             {
                               field: "rollNumber",
                               label: "Roll Number",
-                              placeholder: "21XX1A05XX",
+                              placeholder: "e.g. 1604-XX-XXX-XXX",
                             },
                             {
                               field: "phone",
@@ -823,8 +824,8 @@ const Registration = () => {
                       <div className="flex flex-col items-center gap-3 shrink-0">
                         <div className="w-56 h-56 sm:w-64 sm:h-64 bg-white p-3 border-2 border-arcade-pink shadow-[2px_2px_0px_#00FFFF] transition-transform hover:scale-[1.02]">
                           <img
-                            src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=adsophos@upi&pn=Adsophos"
-                            alt="UPI QR"
+                            src={paymentImg}
+                            alt="Payment details"
                             className="w-full h-full object-contain"
                           />
                         </div>
