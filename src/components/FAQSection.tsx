@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useVelocity, useSpring, useAnimationFrame, useMotionValue } from "framer-motion";
-import { ChevronDown, Plus, HelpCircle, HelpingHand, MapPin } from "lucide-react";
+import { ChevronDown, Plus, HelpCircle, HelpingHand } from "lucide-react";
 
 // Reusable: split text into chars for stagger animation
 const SplitText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
@@ -65,12 +65,12 @@ const faqs = [
     a: "You can register through the official Adsophos website by selecting your desired events and completing the registration form. Confirmation details will be shared after successful registration."
   },
   {
-    q: "Can I participate in more than one event?",
-    a: "Yes. Participants are allowed to register for multiple events as long as the event timings do not overlap."
+    q: "Can I participate as a team?",
+    a: "Some events require a team and some do not. You can check the arcade section for the description of each event for more details."
   },
   {
-    q: "Will certificates be provided?",
-    a: "Yes. All registered participants will receive participation certificates, and winners will receive merit certificates along with cash prizes."
+    q: "Are there prizes for the winners?",
+    a: "Yes, there will be cash prizes for all the winners of the events and for Project Expo as well!"
   },
   {
     q: "What types of events will be conducted?",
@@ -81,19 +81,12 @@ const faqs = [
     a: "Some events may require a registration fee, while others may be free. Fee details will be mentioned along with the event information."
   },
   {
-    q: "Where will Adsophos 2026 be conducted?",
-    a: (
-      <div className="flex flex-col gap-2">
-        <span>Adsophos 2026 will be conducted at:</span>
-        <div className="flex flex-col gap-2 ml-1 my-1">
-          <span className="flex items-center gap-2">
-            <MapPin size={16} className="text-arcade-yellow shrink-0" />
-            <span className="text-zinc-300">Muffakham Jah College of Engineering and Technology, Hyderabad</span>
-          </span>
-        </div>
-        <span>The exact venue details will also be available on the website.</span>
-      </div>
-    )
+    q: "How will I know my event schedule?",
+    a: "All the event timings will be shared in the poster as well as in the arcade section."
+  },
+  {
+    q: "Will there be on-spot registrations?",
+    a: "We cannot promise on-spot registrations for any event, so it is better to register as soon as possible!"
   }
 ];
 

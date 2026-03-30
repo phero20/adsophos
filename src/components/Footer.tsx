@@ -1,5 +1,5 @@
 import logo from "@/assets/adsophos-logo.png";
-import { Instagram, Twitter, Linkedin } from "lucide-react";
+import { Instagram } from "lucide-react";
 
 const Footer = () => (
   <footer className="border-t-4 border-arcade-pink py-12 px-4  relative overflow-hidden">
@@ -16,7 +16,7 @@ const Footer = () => (
 
         {/* Links */}
         <div className="grid grid-cols-2 gap-y-4 gap-x-10 text-center md:text-left mx-auto">
-          {["About", "Events", "Schedule", "Contact"].map((link) => (
+          {["About", "Events", "Contact"].map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
@@ -30,19 +30,18 @@ const Footer = () => (
         {/* Social */}
         <div className="flex flex-col items-center md:items-end gap-6">
           <div className="flex gap-4">
-            {[Instagram, Twitter, Linkedin].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="w-10 h-10 bg-zinc-950 border-2 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-110 hover:-translate-y-1"
-                style={{
-                  borderColor: `hsl(var(--arcade-pink))`,
-                  boxShadow: `3px 3px 0px 0px hsl(var(--arcade-cyan))`,
-                }}
-              >
-                <Icon size={16} />
-              </a>
-            ))}
+            <a
+              href="https://www.instagram.com/adsophos_cse?igsh=Ymt6cnF2eDBoeGho"
+              target="_blank"
+              rel="noreferrer"
+              className="w-10 h-10 bg-zinc-950 border-2 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-110 hover:-translate-y-1"
+              style={{
+                borderColor: `hsl(var(--arcade-pink))`,
+                boxShadow: `3px 3px 0px 0px hsl(var(--arcade-cyan))`,
+              }}
+            >
+              <Instagram size={16} />
+            </a>
           </div>
           <p className="font-body font-bold text-[10px] text-zinc-600 tracking-widest uppercase">
             © 2026 ADSOPHOS. ALL RIGHTS RESERVED.

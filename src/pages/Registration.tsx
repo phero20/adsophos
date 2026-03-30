@@ -45,6 +45,12 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const STEPS = ["Team", "DETAILS", "PAYMENT", "CONFIRM"];
+const DEFAULT_TEAM_SIZE_OPTIONS = [
+  ["1", "Solo (1)"],
+  ["2", "Duo (2)"],
+  ["3", "Trio (3)"],
+  ["4", "Squad (4)"],
+] as const;
 
 const inputCls =
   "bg-black border-2 border-zinc-700 rounded-none focus-visible:ring-0 focus-visible:border-arcade-pink text-white h-12 text-sm font-mono placeholder:text-zinc-600 w-full px-3 ";
@@ -132,6 +138,9 @@ const Registration = () => {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const teamSizeOptions =
+    selectedEvent.teamSizeOptions ?? DEFAULT_TEAM_SIZE_OPTIONS.map(([value, label]) => ({ value, label }));
+  const isTeamSizeLocked = teamSizeOptions.length === 1;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -154,6 +163,13 @@ const Registration = () => {
   const teamSize = parseInt(form.watch("teamSize"), 10) || 1;
   const currentMembers = form.watch("members");
   const allValues = form.watch();
+
+  useEffect(() => {
+    const forcedTeamSize = teamSizeOptions[0]?.value;
+    if (forcedTeamSize && !teamSizeOptions.some((option) => option.value === form.getValues("teamSize"))) {
+      form.setValue("teamSize", forcedTeamSize, { shouldValidate: true });
+    }
+  }, [selectedEvent.name]);
 
   useEffect(() => {
     const currentLen = currentMembers.length;
@@ -310,6 +326,7 @@ const Registration = () => {
                             <Select
                               onValueChange={field.onChange}
                               value={field.value}
+                              disabled={isTeamSizeLocked}
                             >
                               <FormControl>
                                 <SelectTrigger className="bg-black border-2 border-zinc-700 rounded-none focus:ring-0 focus:border-arcade-pink text-white h-12 font-mono text-sm">
@@ -317,22 +334,22 @@ const Registration = () => {
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent className="bg-zinc-950 border-2 border-zinc-700 rounded-none font-mono text-white">
-                                {[
-                                  ["1", "Solo (1)"],
-                                  ["2", "Duo (2)"],
-                                  ["3", "Trio (3)"],
-                                  ["4", "Squad (4)"],
-                                ].map(([v, l]) => (
+                                {teamSizeOptions.map(({ value, label }) => (
                                   <SelectItem
-                                    key={v}
-                                    value={v}
+                                    key={value}
+                                    value={value}
                                     className="focus:bg-zinc-800 focus:text-white cursor-pointer rounded-none text-sm"
                                   >
-                                    {l}
+                                    {label}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
                             </Select>
+                            {isTeamSizeLocked && (
+                              <p className="text-[10px] text-arcade-cyan font-mono mt-1 uppercase tracking-wide">
+                                Brain and Buzzers requires a compulsory team of 2.
+                              </p>
+                            )}
                             <FormMessage className="text-arcade-pink text-[10px] mt-1 font-mono" />
                           </FormItem>
                         )}

@@ -5,10 +5,9 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo3.png";
 
 const navLinks = [
+  { label: "HOME", href: "#home" },
   { label: "ABOUT", href: "#about" },
-  { label: "HISTORY", href: "#history" },
   { label: "EVENTS", href: "#events" },
-  { label: "SCHEDULE", href: "#schedule" },
   { label: "FAQ", href: "#faq" },
   { label: "CONTACT", href: "#contact" },
 ];

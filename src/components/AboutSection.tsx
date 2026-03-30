@@ -1,41 +1,41 @@
-import { motion, useScroll, useTransform, useInView, useVelocity, useSpring, useAnimationFrame, useMotionValue } from "framer-motion";
-import { FileText, Image, Brain, PartyPopper, Lightbulb } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState, type TouchEvent } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useInView,
+  useVelocity,
+  useSpring,
+  useAnimationFrame,
+  useMotionValue,
+} from "framer-motion";
+import h1 from "@/assets/history/h1.jpg";
+import h2 from "@/assets/history/h2.jpg";
+import h3 from "@/assets/history/h3.jpg";
+import h4 from "@/assets/history/h4.jpg";
+import h6 from "@/assets/history/h6.png";
+import h7 from "@/assets/history/h7.png";
+import h8 from "@/assets/history/h8.jpg";
+import h9 from "@/assets/history/h9.jpg";
 
-const features = [
-  {
-    icon: FileText,
-    label: "Paper Presentation",
-    desc: "Present your research & ideas",
-    index: "01",
-  },
-  {
-    icon: Image,
-    label: "Poster Presentation",
-    desc: "Showcase creative visual displays",
-    index: "02",
-  },
-  {
-    icon: Brain,
-    label: "Quiz Competition",
-    desc: "Test your knowledge & win",
-    index: "03",
-  },
-  {
-    icon: PartyPopper,
-    label: "Fun Events",
-    desc: "Treasure hunts & quizzes",
-    index: "04",
-  },
-  {
-    icon: Lightbulb,
-    label: "Project Expo",
-    desc: "Showcase your innovations",
-    index: "05",
-  },
+const historyImages = [
+  { src: h1, title: "TECH SHOWCASE" },
+  { src: h2, title: "INNOVATION DEMOS" },
+  { src: h3, title: "EVENT ARENA" },
+  { src: h4, title: "CROWD MOMENTS" },
+  { src: h6, title: "ARCADE SPIRIT" },
+  { src: h7, title: "VISIONARY WALL" },
+  { src: h8, title: "ADSOPHOS CREW" },
+  { src: h9, title: "CYBER ROBOTICS" },
 ];
 
-// Reusable: split text into chars for stagger animation
+const storyParagraphs = [
+  "ADSOPHOS is one of Hyderabad's biggest tech fests, where fun, creativity, and innovation come together under one roof. Students from colleges across the city flock to MJCET to witness groundbreaking projects, compete in high-stakes challenges, and leave their mark.",
+  "From thrilling competitions and engaging quizzes to a highly insightful Tech Expo, ADSOPHOS 2026 is a vibrant two-day celebration of talent, teamwork, and ambition. Play, compete, and make your place among the best.",
+  "After a brief hiatus due to COVID-19, the legacy was momentarily paused... but now, finally,",
+];
+
 const SplitText = ({
   text,
   className,
@@ -74,30 +74,37 @@ const SplitText = ({
   );
 };
 
-function ParallaxDivider({ className, baseVelocity = 20 }: { className: string; baseVelocity?: number }) {
+function ParallaxDivider({
+  className,
+  baseVelocity = 20,
+}: {
+  className: string;
+  baseVelocity?: number;
+}) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
+  });
   const directionFactor = useRef<number>(baseVelocity < 0 ? -1 : 1);
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_, delta) => {
     let moveBy = directionFactor.current * Math.abs(baseVelocity) * (delta / 1000);
     const velocity = smoothVelocity.get();
-    
+
     if (velocity < 0) {
       directionFactor.current = -1;
     } else if (velocity > 0) {
       directionFactor.current = 1;
     }
 
-    // Reduced the scroll velocity multiplier from 0.05 to 0.015 appropriately
-    moveBy += directionFactor.current * Math.abs(velocity) * 0.0020;
-    
-    // Pixel divider pattern repeats every 16px (8px color, 8px transparent).
+    moveBy += directionFactor.current * Math.abs(velocity) * 0.002;
+
     let nextX = baseX.get() + moveBy;
     nextX = ((nextX % 16) + 16) % 16;
-    baseX.set(nextX - 16); 
+    baseX.set(nextX - 16);
   });
 
   return (
@@ -107,57 +114,128 @@ function ParallaxDivider({ className, baseVelocity = 20 }: { className: string; 
   );
 }
 
-// Horizontal marquee ticker
-const Ticker = () => {
-  const items = [
-    "PAPER",
-    "POSTER",
-    "QUIZ",
-    "EXPO",
-    "FUN EVENTS",
-    "COMPETE",
-    "CREATE",
-    "INNOVATE",
-  ];
-  const repeated = [...items, ...items];
+const MemoryCard = ({
+  card,
+  index,
+  activeIndex,
+  total,
+}: {
+  card: { src: string; title: string };
+  index: number;
+  activeIndex: number;
+  total: number;
+}) => {
+  const diff = index - activeIndex;
+  const isActive = diff === 0;
+
+  const scale = isActive ? 1 : Math.max(0.62, 1 - Math.abs(diff) * 0.15);
+  const opacity = isActive ? 1 : Math.max(0, 1 - Math.abs(diff) * 0.4);
+  const yOffset = diff * 42;
+  const rotateX = diff * -12;
+
   return (
-    <div className="overflow-hidden border-y border-arcade-yellow/30 py-2 my-14 select-none">
-      <motion.div
-        className="flex gap-8 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+    <motion.div
+      initial={false}
+      animate={{
+        scale,
+        opacity,
+        y: yOffset,
+        z: -Math.abs(diff) * 100,
+        rotateX,
+        filter: isActive
+          ? "brightness(1.08) saturate(1.15)"
+          : "brightness(0.48) saturate(0.55)",
+      }}
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+      className="absolute inset-0 flex items-center justify-center p-3 md:p-4"
+      style={{ zIndex: total - Math.abs(diff), perspective: "1200px" }}
+    >
+      <div
+        className={`relative w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[440px] aspect-[4/3] bg-black p-1 transition-all ${
+          isActive
+            ? "border-2 border-arcade-pink shadow-[4px_4px_0_0_hsl(var(--arcade-cyan))]"
+            : "border-2 border-zinc-800 shadow-[4px_4px_0_0_#27272a]"
+        }`}
       >
-        {repeated.map((item, i) => (
-          <span
-            key={i}
-            className="font-arcade text-[10px] tracking-widest text-arcade-yellow/50 flex items-center gap-8"
-          >
-            {item}
-            <span className="text-arcade-pink/40">✦</span>
-          </span>
-        ))}
-      </motion.div>
-    </div>
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.15] scanlines" />
+        <img
+          src={card.src}
+          alt={card.title}
+          loading="lazy"
+          className="h-full w-full object-cover grayscale-[25%]"
+        />
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="absolute -bottom-8 sm:-bottom-10 left-0 right-0 text-center"
+            >
+              <h3
+                className="font-arcade text-[9px] sm:text-xs text-arcade-yellow tracking-widest uppercase whitespace-nowrap"
+                style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
+              >
+                {card.title}
+              </h3>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 };
 
 const AboutSection = () => {
   const sectionRef = useRef(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  // Parallax for the large number
   const bgNumY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+
+  const prev = () => {
+    setActiveIndex((current) =>
+      current === 0 ? historyImages.length - 1 : current - 1
+    );
+  };
+
+  const next = () => {
+    setActiveIndex((current) =>
+      current === historyImages.length - 1 ? 0 : current + 1
+    );
+  };
+
+  const onTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const onTouchEnd = (e: TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      dx < 0 ? next() : prev();
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-24 px-1 scroll-mt-24 overflow-hidden"
+      className="relative overflow-hidden px-4 py-24 scroll-mt-24"
     >
-      {/* ── Background large ghost text ─────────────────────────────────── */}
       <motion.div
         style={{ y: bgNumY }}
         className="pointer-events-none absolute -right-8 top-0 select-none"
@@ -171,167 +249,154 @@ const AboutSection = () => {
         </span>
       </motion.div>
 
-      {/* ── Pixel divider top ─────────────────────────────────────────── */}
-      <ParallaxDivider className="pixel-divider mb-28" baseVelocity={-20} />
+      <ParallaxDivider className="pixel-divider mb-20" baseVelocity={-20} />
 
-      <div className="container mx-auto max-w-5xl">
-        {/* ── HEADER BLOCK ─────────────────────────────────────────────── */}
-        <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end mb-4">
-          {/* Title */}
-          <div>
-            {/* Main heading — clipped reveal */}
-            <div className="overflow-hidden mb-3">
-              <div
-                className="font-arcade text-3xl md:text-5xl leading-[1.2] tracking-wide text-white"
-                style={{
-                  textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)",
-                }}
-              >
-                <SplitText text="A BLAST" delay={0.1} />
-              </div>
-            </div>
-            <div className="overflow-hidden mb-3 pl-1 ml-1">
-              <div
-                className="font-arcade text-3xl md:text-5xl leading-[1.2] tracking-wide text-arcade-yellow"
-                style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}
-              >
-                <SplitText text="FROM THE" delay={0.2} />
-              </div>
-            </div>
-            <div className="overflow-hidden mt-1">
-              <div
-                className="font-arcade text-3xl md:text-5xl leading-[1.2] tracking-wide text-white"
-                style={{
-                  textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)",
-                }}
-              >
-                <SplitText text="PAST." delay={0.3} />
-              </div>
-            </div>
-          </div>
-
-          {/* Right meta block */}
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="grid items-start gap-14 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="hidden md:flex flex-col items-end gap-1 pb-1"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span
-              className="font-arcade text-[15px] text-arcade-cyan tracking-widest"
+            <div className="mb-6">
+              <div className="overflow-hidden mb-3">
+                <div
+                  className="font-arcade text-3xl md:text-5xl leading-[1.15] tracking-wide text-white"
+                  style={{
+                    textShadow: "3px 3px 0px #ec4899, 6px 6px 0px rgba(0,0,0,1)",
+                  }}
+                >
+                  <SplitText text="STORY OF" delay={0.1} />
+                </div>
+              </div>
+              <div className="overflow-hidden">
+                <div
+                  className="font-arcade text-2xl md:text-4xl leading-[1.15] tracking-wide text-arcade-yellow"
+                  style={{ textShadow: "3px 3px 0px rgba(0,0,0,1)" }}
+                >
+                  <SplitText text="ADSOPHOS" delay={0.2} />
+                </div>
+              </div>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-8 max-w-xl font-arcade text-[10px] uppercase tracking-[0.22em] text-arcade-cyan"
               style={{ textShadow: "2px 2px 0px rgba(0,0,0,1)" }}
             >
-              2-DAY FEST
-            </span>
+              Continuing the legacy where it left off. Leveling up for the new era.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="h-px bg-arcade-yellow origin-left mb-8"
+            />
+
+            <div className="space-y-5">
+              {storyParagraphs.map((paragraph, index) => (
+                <motion.p
+                  key={`${index}-${paragraph.slice(0, 24)}`}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-5%" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.28 + index * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="font-body text-sm md:text-base leading-relaxed text-muted-foreground"
+                >
+                  {paragraph}
+                  {index === 2 && (
+                    <>
+                      {" "}
+                      <span
+                        className="text-arcade-pink font-bold"
+                        style={{ textShadow: "1px 1px 0px rgba(0,0,0,1)" }}
+                      >
+                        we are back
+                      </span>
+                      .
+                    </>
+                  )}
+                </motion.p>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col"
+          >
+            <div
+              className="relative"
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+            >
+              <div className="relative h-[280px] sm:h-[340px] lg:h-[460px] flex items-center justify-center">
+                <div className="absolute inset-0">
+                  {historyImages.map((card, index) => (
+                    <MemoryCard
+                      key={card.title}
+                      card={card}
+                      index={index}
+                      activeIndex={activeIndex}
+                      total={historyImages.length}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="h-10 sm:h-12" />
+
+              <div className="flex items-center justify-between gap-4">
+                <button
+                  onClick={prev}
+                  className="font-arcade text-[9px] text-arcade-pink border border-arcade-pink px-3 py-2 transition-transform active:scale-95"
+                >
+                  ◀ PREV
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {historyImages.map((card, index) => (
+                    <button
+                      key={card.title}
+                      onClick={() => setActiveIndex(index)}
+                      aria-label={`Show ${card.title}`}
+                      className={`rounded-none shadow-[1px_1px_0_0_rgba(0,0,0,1)] transition-all duration-300 ${
+                        index === activeIndex
+                          ? "h-1.5 w-5 bg-arcade-cyan"
+                          : "h-1.5 w-1.5 bg-zinc-700"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={next}
+                  className="font-arcade text-[9px] text-arcade-pink border border-arcade-pink px-3 py-2 transition-transform active:scale-95"
+                >
+                  NEXT ▶
+                </button>
+              </div>
+            </div>
           </motion.div>
         </div>
-
-        {/* Animated underline rule */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="h-px bg-arcade-yellow origin-left mb-12"
-        />
-
-        {/* ── BODY COPY ─────────────────────────────────────────────────── */}
-        <div className="grid md:grid-cols-2 gap-10 mb-0">
-          {[
-            "ADSOPHOS 2026 is a vibrant two-day fest where fun, creativity, and culinary delights come together. It’s a space to explore, compete, and enjoy a variety of exciting activities with your friends.",
-            "From thrilling challenges, a highly insightful Tech expo, to engaging quizzes, watch teams climb their way to the top and leave their mark. Play, compete, and make your place among the best.",
-          ].map((para, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-5%" }}
-              transition={{
-                duration: 0.6,
-                delay: 0.1 + i * 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="font-body text-sm text-muted-foreground leading-relaxed"
-            >
-              {para}
-            </motion.p>
-          ))}
-        </div>
       </div>
 
-      {/* ── TICKER ─────────────────────────────────────────────────────────
-      <div className="container mx-auto max-w-5xl">
-        <Ticker />
-      </div> */}
-
-      {/* ── FEATURE CARDS ─────────────────────────────────────────────────── */}
-      <div className="container mx-auto max-w-5xl mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 bg-transparent p-2">
-          {features.map((f, i) => (
-            <FeatureCard key={f.label} f={f} i={i} />
-          ))}
-        </div>
-      </div>
-
-      {/* ── Pixel divider bottom ─────────────────────────────────────────── */}
-      <ParallaxDivider className="pixel-divider-yellow mt-28" baseVelocity={20} />
+      <ParallaxDivider className="pixel-divider-yellow mt-24" baseVelocity={20} />
     </section>
   );
 };
-
-// ── Extracted card with its own inView hook ─────────────────────────────────
-const FeatureCard = ({ f, i }: { f: any; i: number }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-5%" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col h-full"
-    >
-      <div
-        style={{ minHeight: 170 }}
-        className="group relative flex-1 flex flex-col bg-zinc-900 border-2 border-arcade-pink px-5 pt-6 pb-5 cursor-pointer overflow-visible transition-all duration-150 shadow-[4px_4px_0_0_hsl(var(--arcade-cyan))] hover:shadow-[2px_2px_0_0_hsl(var(--arcade-cyan))] hover:translate-y-[2px] hover:translate-x-[2px] active:shadow-[0_0_0_0_hsl(var(--arcade-cyan))] active:translate-y-[4px] active:translate-x-[4px]"
-      >
-        {/* Hover fill — slides up from bottom */}
-        <div className="absolute inset-0 bg-arcade-pink/10 origin-bottom scale-y-0 opacity-0 transition-all duration-300 group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
-
-        {/* Index number */}
-        <span className="font-arcade text-[9px] text-muted-foreground/40 mb-auto tracking-widest group-hover:text-arcade-yellow transition-colors relative z-10">
-          {f.index}
-        </span>
-
-        {/* Icon */}
-        <div className="mt-4 mb-3 relative z-10 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110">
-          <f.icon
-            className="w-7 h-7 text-arcade-yellow transition-colors duration-200 group-hover:text-arcade-cyan"
-            strokeWidth={1.5}
-          />
-        </div>
-
-        {/* Label */}
-        <span
-          className="font-arcade text-[10px] text-white leading-snug tracking-wide mb-1.5 relative z-10"
-          style={{ textShadow: "1px 1px 0px rgba(0,0,0,1)" }}
-        >
-          {f.label}
-        </span>
-
-        {/* Desc */}
-        <span className="font-body text-[10px] text-muted-foreground leading-relaxed font-bold group-hover:text-white/80 transition-colors relative z-10">
-          {f.desc}
-        </span>
-
-        {/* Bottom border accent — expands on hover */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-arcade-pink origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 pointer-events-none z-20" />
-      </div>
-    </motion.div>
-  );
-};
-
 
 export default AboutSection;

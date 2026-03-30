@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const HeroSection = ({ loaded = true }: { loaded?: boolean }) => {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
       {/* Scanline overlay */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none opacity-[0.04]"
