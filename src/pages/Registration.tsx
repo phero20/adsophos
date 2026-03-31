@@ -548,8 +548,8 @@ const Registration = () => {
       }
 
       setRegistrationComplete(true);
-      toast.success("REGISTRATION COMPLETE!", {
-        description: `${registrationState.teamName} registered for ${registrationState.eventName}.`,
+      toast.success("THANK YOU FOR REGISTERING!", {
+        description: `${registrationState.teamName} registered for ${registrationState.eventName}. Payment verification is pending.`,
         className: "border-2 border-green-500 rounded-none bg-black text-green-400 font-mono",
       });
     } catch (error) {
@@ -724,7 +724,8 @@ const Registration = () => {
                             </Select>
                             {isTeamSizeLocked && (
                               <p className="text-[10px] text-arcade-cyan font-mono mt-1 uppercase tracking-wide">
-                                Brain and Buzzers requires a compulsory team of 2.
+                                This event has a fixed team size:{" "}
+                                {teamSizeOptions[0]?.label.replace(" - Compulsory", "")}.
                               </p>
                             )}
                             <FormMessage className="text-arcade-pink text-[10px] mt-1 font-mono" />
@@ -933,7 +934,7 @@ const Registration = () => {
                       <div className="space-y-5 text-center">
                         <div className="border-2 border-green-500 bg-black px-6 py-8 shadow-[3px_3px_0px_#00FFFF]">
                           <p className="font-arcade text-xl sm:text-2xl text-green-400 uppercase">
-                            Registration Confirmed
+                            Thank You For Registering
                           </p>
                           <p className="mt-4 font-mono text-sm text-zinc-300 uppercase tracking-widest">
                             {registrationState.teamName}
@@ -943,7 +944,7 @@ const Registration = () => {
                           </p>
                         </div>
                         <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-                          Your registration has been saved successfully.
+                          Your registration has been received. We will verify your payment screenshot before confirming it.
                         </p>
                         <div className="flex justify-center">
                           <Button

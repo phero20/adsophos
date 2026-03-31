@@ -35,6 +35,23 @@ export type EventCardData = {
   teamSizeOptions?: Array<{ value: string; label: string }>;
 };
 
+const SOLO_TEAM_SIZE_OPTION = [{ value: "1", label: "Solo (1) - Compulsory" }];
+const DUO_TEAM_SIZE_OPTION = [{ value: "2", label: "Duo (2) - Compulsory" }];
+const TEAM_SIZE_OPTIONS_1_TO_2 = [
+  { value: "1", label: "Solo (1)" },
+  { value: "2", label: "Duo (2)" },
+];
+const TEAM_SIZE_OPTIONS_1_TO_3 = [
+  { value: "1", label: "Solo (1)" },
+  { value: "2", label: "Duo (2)" },
+  { value: "3", label: "Trio (3)" },
+];
+const TEAM_SIZE_OPTIONS_2_TO_4 = [
+  { value: "2", label: "Duo (2)" },
+  { value: "3", label: "Trio (3)" },
+  { value: "4", label: "Squad (4)" },
+];
+
 const SplitText = ({
   text,
   className,
@@ -91,6 +108,7 @@ export const eventCards: EventCardData[] = [
 both their knowledge and presentation skills.The event focuses on clear understanding, 
 originality, and the ability to relate ideas to real-world applications. `,
     category: "professional",
+    teamSizeOptions: TEAM_SIZE_OPTIONS_1_TO_3,
   },
   {
     name: "Canvas Clash",
@@ -102,6 +120,7 @@ using A3 paper. \nOnce completed, participants will present their concept to the
 and message behind their work. The event tests creativity, presentation, and the ability to 
 express ideas visually.`,
     category: "professional",
+    teamSizeOptions: SOLO_TEAM_SIZE_OPTION,
   },
   {
     name: "Brain and Buzzers",
@@ -110,7 +129,7 @@ express ideas visually.`,
     description:
       "The ultimate quiz battle! 6 rounds. 2 days. 1 champion. Test your knowledge, sharpen your instincts, and outlast the competition — only the brightest minds survive Brain & Buzzers.",
     category: "professional",
-    teamSizeOptions: [{ value: "2", label: "Duo (2) - Compulsory" }],
+    teamSizeOptions: DUO_TEAM_SIZE_OPTION,
   },
   {
     name: "Auction Mania",
@@ -119,6 +138,7 @@ express ideas visually.`,
     description:
       "Auction Mania brings the electrifying thrill of the IPL Auction to life! Step into the shoes of team owners, where every bid, every decision, and every player you choose shapes your path to victory.\nStart with strategy, as you plan your budget and team composition wisely. Move into the live auction, where quick thinking, smart bidding, and teamwork will give you the advantage. End with team evaluation, where the strongest and most balanced team will rise above the rest. Only the smartest team will build the ultimate squad and dominate the auction. Build your team. Win the auction. Become the champions of Auction Mania.",
     category: "fun",
+    teamSizeOptions: TEAM_SIZE_OPTIONS_2_TO_4,
   },
   {
     name: "Byteopia",
@@ -127,6 +147,7 @@ express ideas visually.`,
     description:
       "Byteopia offers dynamic games with a range of fast-paced, tech-driven challenges that test reflexes, focus, and thinking skills. Participants will take part in interactive activities that require speed, accuracy, and smart decision-making. Each challenge is designed to keep players engaged, encouraging quick reactions and sharp thinking in a high-energy, competitive environment where mastering diverse tasks becomes part of the thrill.",
     category: "fun",
+    teamSizeOptions: SOLO_TEAM_SIZE_OPTION,
   },
   {
     name: "Conquest",
@@ -135,6 +156,7 @@ express ideas visually.`,
     description:
       "Conquest is a multi-round challenge that pushes your speed, strategy, and teamwork to the limit. Begin with Velocity, where quick thinking and communication give you the edge. Move into Shadows & Lies, a round of puzzles, logic, and hidden truths where not everything can be trusted. End with Treasure Hunt: The Final Conquest, an intense race to decode clues and claim victory. Every round brings you closer to the top, if you can keep up. Only one team will conquer it all.",
     category: "fun",
+    teamSizeOptions: TEAM_SIZE_OPTIONS_2_TO_4,
   },
   {
     name: "The Gaming Lab: Outbreak edition",
@@ -143,6 +165,7 @@ express ideas visually.`,
     description:
       "Get ready for an action-packed gaming experience like never before! Step into the heart-pounding world of Resident Evil: Leon’s Last Mission, where survival depends on your courage, strategy, and quick decisions. Switch gears and hit the pitch with FIFA on PS5, where skill, teamwork, and competition collide. Score epic goals, outplay your opponents, and claim victory in thrilling matches. The excitement doesn’t stop there, test your aim and accuracy in the fast-paced Cup Shooting Challenge, a fun and competitive activity that keeps everyone on edge!",
     category: "fun",
+    teamSizeOptions: SOLO_TEAM_SIZE_OPTION,
   },
   {
     name: "Mission Impossible",
@@ -151,6 +174,7 @@ express ideas visually.`,
     description:
       "Mission Impossible is a fun-filled strategy and action game where teams take on exciting missions across four thrilling rounds. Each round presents different challenges from secret action missions, social missions, task missions and stealth operations. The twist? Winners of each round receive Special Power Cards that can be used to gain advantages like pausing other teams, swapping missions, sabotaging opponents, or earning bonus points. Using these powers at the right time can completely change the game. Plan smart, act fast, and stay alert because only the most strategic team will complete the missions and win the game.",
     category: "fun",
+    teamSizeOptions: TEAM_SIZE_OPTIONS_2_TO_4,
   },
 ];
 
