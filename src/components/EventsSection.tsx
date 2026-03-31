@@ -96,7 +96,7 @@ export const eventCards: EventCardData[] = [
     tagline: "Showcase. Build. Inspire.",
     image: projectExpoImg,
     description:
-      "Project Expo is a platform for participants to present innovative models, prototypes, and practical ideas that solve real-world problems. It celebrates creativity, technical skill, and the ability to explain your concept clearly while making an impact through innovation.",
+      "Project Expo is a platform for participants to present innovative models, prototypes, and practical ideas that solve real-world problems. It celebrates creativity, technical skill, and the ability to explain your concept clearly while making an impact through innovation. Win exciting cash prizes.",
     category: "professional",
     registrationUrl: "https://forms.gle/fRSVdMciCATkiTw88",
   },
@@ -106,7 +106,7 @@ export const eventCards: EventCardData[] = [
     image: paperxImg,
     description: `PaperX is an event for participants to present their research papers and demonstrate their understanding of a chosen topic. Participants are expected to clearly explain the problem statement, discuss existing work, identify research gaps, and present their proposed solution.\nParticipants will present using a PPT and take part in a Q&A session with judges, testing 
 both their knowledge and presentation skills.The event focuses on clear understanding, 
-originality, and the ability to relate ideas to real-world applications. `,
+originality, and the ability to relate ideas to real-world applications. Win exciting cash prizes.`,
     category: "professional",
     teamSizeOptions: TEAM_SIZE_OPTIONS_1_TO_3,
   },
@@ -118,7 +118,7 @@ originality, and the ability to relate ideas to real-world applications. `,
 to create a handmade poster based on a theme given on the spot, within the allotted time, 
 using A3 paper. \nOnce completed, participants will present their concept to the judges, explaining the idea 
 and message behind their work. The event tests creativity, presentation, and the ability to 
-express ideas visually.`,
+express ideas visually. Win exciting cash prizes.`,
     category: "professional",
     teamSizeOptions: SOLO_TEAM_SIZE_OPTION,
   },
@@ -127,7 +127,7 @@ express ideas visually.`,
     tagline: "The Battle of the Smartest",
     image: brainAndBuzzersImg,
     description:
-      "The ultimate quiz battle! 6 rounds. 2 days. 1 champion. Test your knowledge, sharpen your instincts, and outlast the competition — only the brightest minds survive Brain & Buzzers.",
+      "The ultimate quiz battle! 6 rounds. 2 days. 1 champion. Test your knowledge, sharpen your instincts, and outlast the competition — only the brightest minds survive Brain & Buzzers. Win exciting cash prizes.",
     category: "professional",
     teamSizeOptions: DUO_TEAM_SIZE_OPTION,
   },
